@@ -1,0 +1,104 @@
+<?php
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Auth::routes();
+
+Route::get('/logout', function(){
+   Auth::logout();
+   return Redirect::to('login');
+});
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/admin', 'AdminController@admin')->middleware('isAdmin')->name('admin');
+
+/* ROUTES ADMIN */
+Route::get('admin/dashboard/paused_projects', 'AdminController@pausedProjects')->name('admin/paused_projects');
+Route::get('admin/dashboard/completed_projects', 'AdminController@completeProjects')->name('admin/completed_projects');
+Route::get('admin/dashboard/upcoming_projects', 'AdminController@upcomingProjects')->name('admin/upcoming_projects');
+Route::get('admin/dashboard/open_projects', 'AdminController@openProjects')->name('admin/open_projects');
+Route::get('admin/projectDetails/{id}', 'AdminController@projectDetails')->name('admin/projectDetails');
+
+/* RESOURCES for routing */
+Route::resource('project', 'ProjectController');
+Route::resource('client', 'ClientController');
+Route::resource('employee', 'EmployeeController');
+Route::resource('team', 'TeamController');
+Route::resource('task', 'TaskController');
+Route::resource('projectuser', 'ProjectUserController');
+Route::resource('taskuser', 'TaskUserController');
+Route::resource('teammember', 'TeamMemberController');
+Route::resource('designation', 'DesignationController');
+Route::resource('recruiter', 'RecruiterController');
+Route::resource('agent', 'AgentController');
+Route::resource('milestone', 'MilestoneController');
+
+/* ROUTES PROJECTS */
+Route::get('admin/project/view' , 'ProjectController@views')->name('project/view');
+Route::get('admin/project/resume/{id}' , 'ProjectController@resume')->name('project/resume');
+Route::get('admin/project/pause/{id}' , 'ProjectController@pause')->name('project/pause');
+Route::get('admin/project/complete/{id}' , 'ProjectController@complete')->name('project/complete');
+
+/* ROUTES CLIENTS */
+Route::get('admin/client/view' , 'ClientController@views')->name('client/view');
+
+/* ROUTES EMPLOYEES */
+Route::get('admin/empoyee/view' , 'EmployeeController@views')->name('employee/view');
+Route::get('empoyee/details/{id}' , 'EmployeeController@details')->name('employee/details');
+
+/* ROUTES Teams */
+Route::get('admin/team/view' , 'TeamController@view')->name('team/view');
+Route::get('team/details/{id}' , 'TeamController@details')->name('team/details');
+
+/* ROUTES Tasks */
+Route::get('admin/task/create/{id}' , 'TaskController@createTask')->name('create/task');
+Route::get('admin/task/view' , 'TaskController@view')->name('task/view');
+Route::get('task/details/{id}' , 'TaskController@details')->name('task/details');
+Route::get('task/pause/{id}' , 'TaskController@pause')->name('task/pause');
+Route::get('task/resume/{id}' , 'TaskController@resume')->name('task/resume');
+Route::get('task/complete/{id}' , 'TaskController@complete')->name('task/complete');
+
+/* ROUTES AssignProject */
+Route::get('admin/assignproject/view' , 'ProjectUserController@view')->name('projectuser/view');
+Route::get('admin/assignproject/{id}' , 'ProjectUserController@create')->name('assign/team');
+
+/* ROUTES AssignTasks */
+Route::get('admin/assigntasks/view' , 'TaskUserController@view')->name('taskuser/view');
+Route::get('admin/assigntask/{id}' , 'TaskUserController@create')->name('assign_task');
+
+/* ROUTES Team Members */
+Route::get('admin/teammembers/view' , 'TeamMemberController@view')->name('teammember/view');
+
+/* ROUTES Designation */
+Route::get('admin/designation/view' , 'DesignationController@view')->name('designation/view');
+
+/* ROUTES Recruiter */
+Route::get('admin/recruiter/view' , 'RecruiterController@view')->name('recruiter/view');
+
+/* ROUTES Agent */
+Route::get('admin/agents/list' , 'AgentController@view')->name('agent/view');
+
+/* ROUTES Agent */
+Route::get('milestone/add/{id}' , 'MilestoneController@createMilestone')->name('create/milestone');
+Route::get('milestone/release/{id}' , 'MilestoneController@releaseMilestone')->name('milestone/release');
+
+/* ROUTE Logout */
+Route::get('client/details/{id}', 'AdminController@client_details')->name('client/details');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

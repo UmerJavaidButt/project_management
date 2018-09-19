@@ -1,0 +1,51 @@
+/* Login Page */
+.container-fluid{
+	padding: 60px;
+}
+
+.login-page{
+	width: 100%;
+	background-size: cover !important;
+    background: url(../dashboard_assets/assets/images/welcome/bg.jpg) no-repeat center center fixed	
+}
+
+.login-card {
+    border-radius: 10px !important;
+    position: relative !important;
+    display: block !important;
+    min-width: 450px !important;
+}
+
+.auth-box {
+    background-color: #fff;
+    border-radius: 8px;
+    margin: 20px 0 0 0;
+    padding: 20px;
+}
+
+.login-card h3 {
+    color: #666666;
+    font-size: 24px;
+    font-weight: 600;
+    margin-top: 20px;
+}
+
+.btn-primary {
+    background-color: #1abc9c !important;
+    border-color: #1abc9c !important;
+    color: #fff !important;
+    cursor: pointer;
+    transition: all ease-in 0.3s;
+}
+
+.btn-primary:hover{
+    color: #1abc9c;
+    background-color: #fff; 
+}
+
+.btn-md {
+    padding: 10px 16px;
+    font-size: 15px;
+    line-height: 23px;
+}
+/* Login Page */
