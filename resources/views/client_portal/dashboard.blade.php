@@ -8,6 +8,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
         
 
     <!-- Favicon icon -->
@@ -19,6 +20,11 @@
     <!-- themify-icons line icon -->
     <link rel="stylesheet" type="text/css" href= "{{ asset('dashboard_assets/assets/icon/themify-icons/themify-icons.css') }}">
 
+    <!-- Data Table Css -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('dashboard_assets/bower_components/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('dashboard_assets/bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('dashboard_assets/assets/css/component.css') }}">
+    
     <!-- ico font -->
     <link rel="stylesheet" type="text/css" href= "{{ asset('dashboard_assets/assets/icon/icofont/css/icofont.css') }}">
     <!-- flag icon framework css -->
@@ -58,35 +64,7 @@
             <div class="navbar-container">
                 <div>
                     <ul class="nav-left">
-                        <li class="user-profile header-notification">
-                            <a class="" href="{{route('client_portal')}}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                <span class="site-heading-upper mb-3">Project Management Dashboard</span>
-                                <i class="ti-angle-down"></i>
-                            </a>
-                                
-                            <!-- Experiment -->                               
-                            <!-- <ul class="show-notification profile-notification">
-                                <li>
-                                    <a class="" href="#"
-                                       >
-                                        <span class="site-heading-upper mb-3">{{ __('Clients') }}</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="" href="#"
-                                       >
-                                        <span class="site-heading-upper mb-3">{{ __('Areas') }}</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="" href="#"
-                                       >
-                                        <span class="site-heading-upper mb-3">{{ __('Status') }}</span>
-                                    </a>
-                                </li>
-                            </ul> -->
-                            <!-- Experiment -->
-                        </li>  
+                        
                     </ul>
                     <ul class="nav-right">
                         <!-- Authentication Links -->
@@ -129,10 +107,11 @@
     </nav>
     <!-- Menu header end -->
     <!-- Menu aside start -->
-    <div class="main-menu">
+    <div class="main-menu" id="hoizontal-static">
         <div class="main-menu-content">
             <ul class="main-navigation">
                 <ul>
+
                     <li class="nav-item has-class" id="dashboard_heading">
                         <a href="{{ url('admin') }}">
                             <i class="ti-home"></i>
@@ -142,118 +121,22 @@
 
                     <li class="nav-item">
                         <a href="javascript:void(0)">
-                            <i class="ti-home has-class"></i>
-                            <span data-i18n="nav.dash.main">Manage Projects</span>
+                            <i class="ti-settings has-class"></i>
+                            <span data-i18n="nav.dash.main">Preferences</span>
                         </a>
                         <ul class="tree-1">
                         <li>
-                            <a href="{{ url('project/create') }}" data-i18n="nav.dash.default"> Add Project Details </a></li>
+                            <a href="{{ url('project/create') }}" data-i18n="nav.dash.default"> Business Types </a>
+                        </li>
                         <li>
-                            <li><a href="{{ route ('project/view') }}" data-i18n="nav.dash.ecommerce"> View All Projects </a></li>
+                            <a href="{{ route ('project/view') }}" data-i18n="nav.dash.ecommerce"> Statuses </a>
                             <!--  -->
-                            </li>
-                        </ul>
-                    </li>
+                        </li>
 
-                    <li class="nav-item">
-                        <a href="javascript:void(0)">
-                            <i class="ti-home"></i>
-                            <span data-i18n="nav.dash.main">Manage Cleints</span>
-                        </a>
-
-                        <ul class="tree-1">
                         <li>
-                            <a href="{{ url('client/create') }}" data-i18n="nav.dash.default"> Add Client Details </a></li>
-                        <li>
-                            <li><a href="{{ route ('client/view') }}" data-i18n="nav.dash.ecommerce"> View All Clients </a></li>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="javascript:void(0)">
-                            <i class="ti-home"></i>
-                            <span data-i18n="nav.dash.main">Manage Employees</span>
-                        </a>
-
-                        <ul class="tree-1">
-                            <li>
-                                <a href="{{ url('employee/create') }}" data-i18n="nav.dash.default"> Add Employee Details </a></li>
-                            <li>
-                                <li><a href="{{ route ('employee/view') }}" data-i18n="nav.dash.ecommerce"> View All Employees </a></li>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="javascript:void(0)">
-                            <i class="ti-home"></i>
-                            <span data-i18n="nav.dash.main">Manage Teams</span>
-                        </a>
-
-                        <ul class="tree-1">
-                            <li>
-                                <a href="{{ url('team/create') }}" data-i18n="nav.dash.default"> Register Team </a></li>
-                            <li>
-                                <li><a href="{{ route ('team/view') }}" data-i18n="nav.dash.ecommerce"> View All Teams </a></li>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="javascript:void(0)">
-                            <i class="ti-home"></i>
-                            <span data-i18n="nav.dash.main">Manage Agent</span>
-                        </a>
-
-                        <ul class="tree-1">
-                            <li>
-                                <a href="{{ url('agent/create') }}" data-i18n="nav.dash.default"> Register Agent </a></li>
-                            <li>
-                                <li><a href="{{ route ('agent/view') }}" data-i18n="nav.dash.ecommerce"> List of Agents </a></li>
-                            </li>
-                        </ul>
-                    </li>
-
-                   <li class="nav-item">
-                        <a href="javascript:void(0)">
-                            <i class="ti-home"></i>
-                            <span data-i18n="nav.dash.main">Tasks</span>
-                        </a>
-
-                         <ul class="tree-1">
-                                <li><a href="{{ route ('taskuser/view') }}" data-i18n="nav.dash.ecommerce"> View All Tasks </a></li>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="javascript:void(0)">
-                            <i class="ti-home"></i>
-                            <span data-i18n="nav.dash.main">Team Members</span>
-                        </a>
-
-                        <ul class="tree-1">
-                            <li>
-                                <a href="{{ url('teammember/create') }}" data-i18n="nav.dash.default"> Assign Team Members </a></li>
-                            <li>
-                                <li><a href="{{ route ('teammember/view') }}" data-i18n="nav.dash.ecommerce"> Teams & Members </a></li>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="javascript:void(0)">
-                            <i class="ti-home"></i>
-                            <span data-i18n="nav.dash.main">Designations</span>
-                        </a>
-
-                        <ul class="tree-1">
-                            <li>
-                                <a href="{{ url('designation/create') }}" data-i18n="nav.dash.default"> Designations </a></li>
-                            <li>
-                                <li><a href="{{ route ('designation/view') }}" data-i18n="nav.dash.ecommerce"> View Designations </a></li>
-                            </li>
+                            <a href="{{ route ('project/view') }}" data-i18n="nav.dash.ecommerce"> Areas </a>
+                            <!--  -->
+                        </li>    
                         </ul>
                     </li>
                 </ul>
@@ -267,7 +150,19 @@
         <div class="page-wrapper">
             <div class="page-header">
                 <div class="page-header-title">
-                    <h4>Project Dashboard</h4>
+                    <ul class="nav nav-tabs">
+                        <li>
+                            <a href="{{route('admin')}}" class="nav-link">
+                                <h4>Project Dashboard</h4>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="javascript:void(0)" class="nav-link active">
+                                <h4>Client Portal Dashboard</h4>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
                 <div class="page-header-breadcrumb">
                     <ul class="breadcrumb-title">
@@ -278,321 +173,266 @@
                         </li>
                         <li class="breadcrumb-item"><a href="#!">Dashboard</a>
                         </li>
-                        <li class="breadcrumb-item"><a href="#!">Project</a>
+                        <li class="breadcrumb-item"><a href="#!">Client-FollowUp</a>
                         </li>
                     </ul>
                 </div>
             </div>
-            <div class="page-body">
-                <div class="row">
-                    <!-- Documents card start -->
-                    <div class="col-md-6 col-xl-3">
-                        <div class="card client-blocks dark-primary-border">
-                            <a href="{{ route ('admin/paused_projects')}}" class="" role="button">    
-                                <div class="card-block">
-                                    <h5 class="dashboard_box">Paused Projects</h5>
-                                    <ul class="dashboard_box_ul">
-                                        <li>
-                                            <i class="icofont icofont-ui-pause text-warning"></i>
-                                        </li>
-                                        <li class="text-right">
-                                        @if($pausedProjects == 0)
-                                            {{('0')}}
-                                        @else
-                                            {{ $pausedProjects }}
-                                        @endif
-                                        </li>
-                                    </ul>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <!-- Documents card end -->
-                    <!-- New clients card start -->
-                    <div class="col-md-6 col-xl-3">
-                        <div class="card client-blocks warning-border">
-                            <a href="{{ route ('admin/completed_projects')}}">    
-                                <div class="card-block complete_p_click">
-                                    <h5 class="dashboard_box">Completed Projects</h5>
-                                    <ul class="dashboard_box_ul">
-                                        <li>
-                                            <i class="icofont icofont-tick-boxed"></i>
-                                        </li>
-                                        <li class="text-right text-warning">
-                                        @if($completedProjects == 0)
-                                            {{('0')}}
-                                        @else
-                                            {{$completedProjects}}
-                                        @endif
-                                        </li>
-                                    </ul>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <!-- New clients card end -->
-                    <!-- New files card start -->
-                    <div class="col-md-6 col-xl-3">
-                        <div class="card client-blocks success-border">
-                            <a href="{{ route ('admin/upcoming_projects')}}">    
-                                <div class="card-block upcoming_p_click">
-                                    <h5 class="dashboard_box">Upcoming Projects</h5>
-                                    <ul class="dashboard_box_ul">
-                                        <li>
-                                            <i class="icofont icofont-files text-success"></i>
-                                        </li>
-                                        <li class="text-right text-success">
-                                        @if($upcomingProjects == 0)
-                                            {{('0')}}
-                                        @else
-                                            {{ $upcomingProjects}}
-                                        @endif
-                                        </li>
-                                    </ul>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <!-- Upcoming Projects card end -->
-                    <!-- Open Project card start -->
-                    <div class="col-md-6 col-xl-3">
-                        <div class="card client-blocks">
-                            <a href="{{ route ('admin/open_projects')}}">
-                                <div class="card-block open_p_click">
-                                    <h5 class="dashboard_box">Open Projects</h5>
-                                    <ul class="dashboard_box_ul">
-                                        <li>
-                                            <i class="icofont icofont-ui-folder text-primary"></i>
-                                        </li>
-                                        <li class="text-right text-primary">
-                                         @if( $pendingProjects == 0 )
-                                            {{('0')}}
-                                        @else
-                                            {{ $pendingProjects}}
-                                        @endif
-                                        </li>
-                                    </ul>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
 
-                    <!-- Horizontal Timeline start -->
-                    <div class="col-md-12 col-xl-8">
-                        <div class="card">
-                        <div class="card-header">
-                            <h5>Projects Timeline</h5>
-                        </div>
-                            <div class="card-block">
-                            @if($projectTimeline->isEmpty())
-                                <div class="label label-danger">{{('No Projects Found')}}</div>
-                            @else
-                                <div class="cd-horizontal-timeline">
-                                    <div class="timeline">
-                                        <div class="events-wrapper">
-                                            <div class="events">
-                                                <ol>
-                                                    <li><a href="#0" data-date="{{ \Carbon\Carbon::parse($projectTimeline[0]->start_date)->format('d/m/Y')}}" class="selected"></a></li>
-                                                    @foreach($projectTimeline as $key => $project)
-                                                        @if ($key != 'currLimit' && $key != 'eventsRemaining')
-                                                            <li><a href="#0" data-date="{{ \Carbon\Carbon::parse($project->start_date)->format('d/m/Y')}}" class=""></a></li>
+            <div class="page-body">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Contact</h5>
+                        <button type="button" class="btn btn_submit btn-primary waves-effect waves-light f-right d-inline-block md-trigger" 
+                        data-modal="modal-13" id="add_client"> <i class="icofont icofont-plus m-r-5"></i> Add Client
+                        </button>
+                    </div>
+                    <div class="card-block">
+                        <div class="table-content crm-table">
+                            <div class="project-table">
+                                <table id="crm-contact" class="table table-striped dt-responsive nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Area</th>
+                                            <th>Phone</th>
+                                            <th>Website</th>
+                                            <th>Business Type</th>
+                                            <th>Description</th>
+                                            <th>Action</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    @if( !empty($clients) )
+                                        @foreach($clients as $client)
+                                            <tr>
+                                                <td class="pro-name">
+                                                   {{$client->title}} 
+                                                </td>
+                                                <td>{{$client->email}}</td>
+                                                <td>
+                                                    @foreach($areas as $area)
+                                                        @if($area->id == $client->area_id)
+                                                            {{$area->name}}
                                                         @endif
                                                     @endforeach
-                                                </ol>
-                                                <span class="filling-line" aria-hidden="true"></span>
-                                            </div>
-                                            <!-- .events -->
-                                        </div>
-                                        <!-- .events-wrapper -->
-                                        <ul class="cd-timeline-navigation">
-                                            <li><a href="#0" class="prev inactive">Prev</a></li>
-                                            <li><a href="#0" class="next">Next</a></li>
-                                        </ul>
-                                        <!-- .cd-timeline-navigation -->
-                                    </div>
-                                    <!-- .timeline -->
-                                    <div class="events-content">
-                                        <ol>
-                                        <li class="selected" data-date="{{ \Carbon\Carbon::parse($projectTimeline[0]->start_date)->format('d/m/Y')}}">
-                                                <h2>{{$projectTimeline[0]->name}}</h2>
-                                                <em>{{ \Carbon\Carbon::parse($projectTimeline[0]->start_date)->format('d/m/Y')}}</em>
-                                                <p class="m-b-0">
-                                                   {{ $projectTimeline[0]->description }}
-                                                </p>
-                                                <div class="m-t-20 d-timeline-btn">
-                                                    <button class="btn btn-danger">Read More</button>
-                                                    <button class="btn btn-primary f-right"><i class="icofont icofont-plus m-r-0"></i></button>
-                                                </div>
-                                            </li>
-
-                                            @foreach($projectTimeline as $key => $project)
-                                                @if ($key != 'currLimit' && $key != 'eventsRemaining')
-                                                    <li class="" data-date="{{ \Carbon\Carbon::parse($project->start_date)->format('d/m/Y')}}">
-                                                        <h2>{{$project->name}}</h2>
-                                                        <em>{{ \Carbon\Carbon::parse($project->start_date)->format('d/m/Y')}}</em>
-                                                        <p class="m-b-0">
-                                                            {{ $project->description }}
-                                                        </p>
-                                                        <div class="m-t-20 d-timeline-btn">
-                                                            <button class="btn btn-danger">Read More</button>
-                                                            <button class="btn btn-primary f-right"><i class="icofont icofont-plus m-r-0"></i></button>
-                                                        </div>
-                                                    </li>
-                                                @endif
-                                            @endforeach
-                                        </ol>
-                                    </div>
-                                    <!-- .events-content -->
-                                </div>
-                            @endif
+                                                </td>
+                                                <td>{{$client->phone}}</td>
+                                                <td>{{$client->website}}</td>
+                                                <td>{{$client->business_type}}</td>
+                                                <td>{{$client->description}}</td>
+                                                <td>{{$client->status}}</td>
+                                                <td class="action-icon">
+                                                    <a href="javascript:;" class="m-r-15 crm-action-edit text-muted"><i class="icofont icofont-ui-edit"></i></a>
+                                                    <a href="javascript:;" class="crm-action-delete text-muted"><i class="icofont icofont-delete-alt"></i></a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
+                                    </tbody>
+                                    <!-- <tfoot>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Area</th>
+                                            <th>Phone</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </tfoot> -->
+                                </table>
                             </div>
                         </div>
                     </div>
-                    <!-- Horizontal Timeline end -->
-                    <!-- Todo card start -->
-                    <div class="col-md-12 col-xl-4">
-                        <div class="card">
-                            <div class="card-header">
-                                <h5>What's Today?</h5>
-                                <label class="label label-success">Today</label>
-                            </div>
-                            <div class="card-block">
-                                <!-- <div class="input-group input-group-button">
-                                    <input type="text" class="form-control add_task_todo" placeholder="Create your task list" name="task-insert">
-                                    <span class="input-group-addon" id="basic-addon1">
-                              <button id="add-btn" class="btn btn-primary">Add Task</button>
-                              </span>
-                                </div> -->
-                                <div class="new-task">
+                </div>
 
-                                @if($todays == null)
+                <!-- Add Contact Start Model -->
+                <div id="modal_popup"></div>
+                <!-- <div class="md-modal md-effect-13 addcontact" id="modal-13">
+                    <div class="md-content">
+                        <h3 class="f-26">Add Client</h3>
+                        <div>
+                        <form class="form" action="" method="" id="client_form">
+                        @csrf
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1"><i class="icofont icofont-user"></i></span>
+                                <input type="text" name="name" class="form-control" placeholder="Client Name">
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
+                                <input type="text" name="email" class="form-control" placeholder="Client Email">
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1"><i class="icofont icofont-user"></i></span>
+                                <input type="text" name="Phone" class="form-control" placeholder="Phone Number">
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon4"><i class="icofont icofont-user"></i></span>
+                                <input type="text" name = "website" class="form-control" placeholder="Website">
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon5"><i class="icofont icofont-user"></i></span>
+                                <select type="number" class="form-control" name="b_type">
+                                <option value="">---Select Business Type---</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon6"><i class="icofont icofont-user"></i></span>
+                                <select type="number" class="form-control" name="area">
+                                <option value="">---Select Area---</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon7"><i class="icofont icofont-user"></i></span>
+                                <textarea id="dropper-default" name="description" class="form-control" type="text" placeholder="Description..."></textarea>
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon6"><i class="icofont icofont-user"></i></span>
+                                <select type="number" class="form-control" name="status">
+                                <option value="">---Select Current Status---</option>
+                                </select>
+                            </div>
+                            <div class="text-center">
+                                <button type="button" id="modal_submit" class="btn btn_submit btn-primary waves-effect m-r-20 f-w-600 d-inline-block">Save</button>
+                                <button type="button" class="btn btn_danger btn-danger waves-effect m-r-20 f-w-600 md-close d-inline-block">Close</button>
+                            </div>
+                           </form> 
+                        </div>
+                    </div>
+                </div>
+                <div class="md-overlay"></div> -->
+            </div>
+                
+                <!-- Add Contact Ends Model-->
+                
+
+            <div class="row">                    
+                <!-- Todo card start -->
+                <div class="col-md-12 col-xl-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>What's Today?</h5>
+                            <label class="label label-success">Today</label>
+                        </div>
+                        <div class="card-block">
+                            <div class="new-task">
+
+                            
+                                <div class="checkbox-fade fade-in-primary">
+                                    <label class="check-task">
+                                        <span class="label label-success">Nothing for today!<strong></strong></span>
+                                    </label>
+                                </div>
+                            
+
+                            
+                                <div class="to-do-list">
                                     <div class="checkbox-fade fade-in-primary">
                                         <label class="check-task">
-                                            
+                                            <input type="checkbox" value="">
                                             <span class="cr">
                                                 <i class="cr-icon icofont icofont-ui-check txt-primary"></i>
                                             </span>
-                                            <span class="label label-success">Nothing for today!<strong></strong></span>
+                                            <span>Deadline for project <strong></strong> today</span>
                                         </label>
                                     </div>
-                                @endif
-
-                                @if($todays['project_deadline'])
-                                    @foreach($todays['project_deadline'] as $project_deadline)
-                                    <div class="to-do-list">
-                                        <div class="checkbox-fade fade-in-primary">
-                                            <label class="check-task">
-                                                <input type="checkbox" value="">
-                                                <span class="cr">
-                                                    <i class="cr-icon icofont icofont-ui-check txt-primary"></i>
-                                                </span>
-                                                <span>Deadline for project <strong>{{$project_deadline->name}}</strong> today</span>
-                                            </label>
-                                        </div>
-                                        <div class="f-right">
-                                            <a href="#!" class="delete_todolist"><i class="icofont icofont-ui-delete" ></i></a>
-                                        </div>
+                                    <div class="f-right">
+                                        <a href="#!" class="delete_todolist"><i class="icofont icofont-ui-delete" ></i></a>
                                     </div>
-                                    @endforeach
-                                @endif
-
-                                @if($todays['project_start'])
-                                    @foreach($todays['project_start'] as $project_start)
-                                    <div class="to-do-list">
-                                        <div class="checkbox-fade fade-in-primary">
-                                            <label class="check-task">
-                                                <input type="checkbox" value="">
-                                                <span class="cr">
-                                                    <i class="cr-icon icofont icofont-ui-check txt-primary"></i>
-                                                </span>
-                                                <span>Project <strong>{{$project_start->name}}</strong> starts today!</span>
-                                            </label>
-                                        </div>
-                                        <div class="f-right">
-                                            <a href="#!" class="delete_todolist"><i class="icofont icofont-ui-delete" ></i></a>
-                                        </div>
-                                    </div>
-                                    @endforeach
-                                @endif
-
-                                @if($todays['late_project'])
-                                    @foreach($todays['late_project'] as $late_project)
-                                    <div class="to-do-list">
-                                        <div class="checkbox-fade fade-in-primary">
-                                            <label class="check-task">
-                                                <input type="checkbox" value="">
-                                                <span class="cr">
-                                                    <i class="cr-icon icofont icofont-ui-check txt-primary"></i>
-                                                </span>
-                                                <span>Project <strong>{{$late_project->name}} is Late!</strong></span>
-                                            </label>
-                                        </div>
-                                        <div class="f-right">
-                                            <a href="#!" class="delete_todolist"><i class="icofont icofont-ui-delete" ></i></a>
-                                        </div>
-                                    </div>
-                                    @endforeach
-                                @endif
-
-                                @if($todays['task_deadline'])
-                                    @foreach($todays['task_deadline'] as $task_deadline)
-                                    <div class="to-do-list">
-                                        <div class="checkbox-fade fade-in-primary">
-                                            <label class="check-task">
-                                                <input type="checkbox" value="">
-                                                <span class="cr">
-                                                    <i class="cr-icon icofont icofont-ui-check txt-primary"></i>
-                                                </span>
-                                                <span>Deadline for task <strong>{{$task_deadline->name}}</strong> today.</span>
-                                            </label>
-                                        </div>
-                                        <div class="f-right">
-                                            <a href="#!" class="delete_todolist"><i class="icofont icofont-ui-delete" ></i></a>
-                                        </div>
-                                    </div>
-                                    @endforeach
-                                @endif
-
-                                @if($todays['task_start'])
-                                    @foreach($todays['task_start'] as $task_start)
-                                    <div class="to-do-list">
-                                        <div class="checkbox-fade fade-in-primary">
-                                            <label class="check-task">
-                                                <input type="checkbox" value="">
-                                                <span class="cr">
-                                                    <i class="cr-icon icofont icofont-ui-check txt-primary"></i>
-                                                </span>
-                                                <span>Task <strong>{{$task_start->name}}</strong> starts today!</span>
-                                            </label>
-                                        </div>
-                                        <div class="f-right">
-                                            <a href="#!" class="delete_todolist"><i class="icofont icofont-ui-delete" ></i></a>
-                                        </div>
-                                    </div>
-                                    @endforeach
-                                @endif
-
-                                @if($todays['late_task'])
-                                    @foreach($todays['late_task'] as $late_task)
-                                    <div class="to-do-list">
-                                        <div class="checkbox-fade fade-in-primary">
-                                            <label class="check-task">
-                                                <input type="checkbox" value="">
-                                                <span class="cr">
-                                                    <i class="cr-icon icofont icofont-ui-check txt-primary"></i>
-                                                </span>
-                                                <span>Task <strong>{{$late_task->name}}</strong> is late!</span>
-                                            </label>
-                                        </div>
-                                        <div class="f-right">
-                                            <a href="#!" class="delete_todolist"><i class="icofont icofont-ui-delete" ></i></a>
-                                        </div>
-                                    </div>
-                                    @endforeach
-                                @endif
                                 </div>
-                    <!-- Todo card end -->
+                                
+
+                            
+                                <div class="to-do-list">
+                                    <div class="checkbox-fade fade-in-primary">
+                                        <label class="check-task">
+                                            <input type="checkbox" value="">
+                                            <span class="cr">
+                                                <i class="cr-icon icofont icofont-ui-check txt-primary"></i>
+                                            </span>
+                                            <span>Project <strong></strong> starts today!</span>
+                                        </label>
+                                    </div>
+                                    <div class="f-right">
+                                        <a href="#!" class="delete_todolist"><i class="icofont icofont-ui-delete" ></i></a>
+                                    </div>
+                                </div>
+                                
+
+                            
+                                <div class="to-do-list">
+                                    <div class="checkbox-fade fade-in-primary">
+                                        <label class="check-task">
+                                            <input type="checkbox" value="">
+                                            <span class="cr">
+                                                <i class="cr-icon icofont icofont-ui-check txt-primary"></i>
+                                            </span>
+                                            <span>Project <strong> is Late!</strong></span>
+                                        </label>
+                                    </div>
+                                    <div class="f-right">
+                                        <a href="#!" class="delete_todolist"><i class="icofont icofont-ui-delete" ></i></a>
+                                    </div>
+                                </div>
+                                
+
+                           
+                                <div class="to-do-list">
+                                    <div class="checkbox-fade fade-in-primary">
+                                        <label class="check-task">
+                                            <input type="checkbox" value="">
+                                            <span class="cr">
+                                                <i class="cr-icon icofont icofont-ui-check txt-primary"></i>
+                                            </span>
+                                            <span>Deadline for task <strong></strong> today.</span>
+                                        </label>
+                                    </div>
+                                    <div class="f-right">
+                                        <a href="#!" class="delete_todolist"><i class="icofont icofont-ui-delete" ></i></a>
+                                    </div>
+                                </div>
+                                
+
+                            
+                                <div class="to-do-list">
+                                    <div class="checkbox-fade fade-in-primary">
+                                        <label class="check-task">
+                                            <input type="checkbox" value="">
+                                            <span class="cr">
+                                                <i class="cr-icon icofont icofont-ui-check txt-primary"></i>
+                                            </span>
+                                            <span>Task <strong></strong> starts today!</span>
+                                        </label>
+                                    </div>
+                                    <div class="f-right">
+                                        <a href="#!" class="delete_todolist"><i class="icofont icofont-ui-delete" ></i></a>
+                                    </div>
+                                </div>
+                               
+
+                           
+                                <div class="to-do-list">
+                                    <div class="checkbox-fade fade-in-primary">
+                                        <label class="check-task">
+                                            <input type="checkbox" value="">
+                                            <span class="cr">
+                                                <i class="cr-icon icofont icofont-ui-check txt-primary"></i>
+                                            </span>
+                                            <span>Task <strong></strong> is late!</span>
+                                        </label>
+                                    </div>
+                                    <div class="f-right">
+                                        <a href="#!" class="delete_todolist"><i class="icofont icofont-ui-delete" ></i></a>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <!-- Todo card end -->
             </div>
         </div>
     </div>
@@ -607,19 +447,76 @@
     <!-- To-Do js -->    
     <script src="{{ asset('dashboard_assets/assets/js/todo/todo.js') }}"></script>
 
-    <!-- data-table js -->    
-    <script src="{{ asset('dashboard_assets/assets/js/datatable/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('dashboard_assets/assets/js/datatable/responsive.bootstrap4.min.js') }}"></script>
+    <!-- classie js -->
+    <script type="text/javascript" src="{{ asset('dashboard_assets/bower_components/classie/classie.js') }}"></script>
+        
+    <!-- datatable js -->
+    <script src="{{ asset('dashboard_assets/bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('dashboard_assets/bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('dashboard_assets/bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('dashboard_assets/bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
+    
+    <!-- Model animation js -->
+    <script src="{{ asset('dashboard_assets/assets/js/classie.js') }}"></script>
+    <script src="{{ asset('dashboard_assets/assets/js/modalEffects.js') }}"></script>
 
     <!-- Horizontal-Timeline js -->
     <script type="text/javascript" src="{{ asset('dashboard_assets/assets/js/main.js') }}"></script>
     
     <!-- Custom js -->
     <script type="text/javascript" src="{{ asset('dashboard_assets/assets/js/script.js') }}"></script>
-    <script src="{{ asset('dashboard_assets/assets/js/datatable/data-table-custom.js') }}"></script>
 
 </body>
 
 </html>
+
+<script type="text/javascript">
+    /* Fetching data for dropdowns */
+    $('#add_client').click(function(e){
+        e.preventDefault();
+        $.ajax({
+        url:"{{route('getDropdowns')}}",
+        type:"get",
+        data:'',
+        dataType:"json",
+        success:function(status){
+                $('#modal_popup').html(data.html);
+            }
+        });
+    });
+
+
+    /* Adding Client Modal Form Submission  */ 
+    $('#modal_submit').click(function(e){
+      e.preventDefault();
+      var btn = $(this);
+      $(btn).button('loading');
+      var value = $("#client_form").serialize();
+      console.log(value);
+      $.ajax({
+        url:"{{route('clientportal')}}",
+        type:"post",
+        data:value,
+        dataType:"json",
+        success:function(status){
+
+          if(status.msg=='success'){
+            notify('Success! ', status.response, 'success');
+            $(btn).button('reset');
+            $('#add_client')[0].reset();
+            $( "#add_contact" ).modal( "hide" );
+          }
+          else if(status.msg == 'error'){
+            notify('Error! ', status.response, 'danger');
+            $(btn).button('reset');
+          }
+        }
+      });
+    });
+
+    $(document).ready( function () {
+    $('#crm-contact').DataTable();
+    });
+</script>
 
     

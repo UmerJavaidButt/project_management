@@ -58,35 +58,7 @@
             <div class="navbar-container">
                 <div>
                     <ul class="nav-left">
-                        <li class="user-profile header-notification">
-                            <a class="" href="{{ route ('client_portal') }}" >
-                                <span class="site-heading-upper mb-3">Client Portal Dashboard</span>
-                                <i class="ti-angle-down"></i>
-                            </a>
-                                
-                            <!-- Experiment -->                               
-                            <!-- <ul class="show-notification profile-notification">
-                                <li>
-                                    <a class="" href="#"
-                                       >
-                                        <span class="site-heading-upper mb-3">{{ __('Clients') }}</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="" href="#"
-                                       >
-                                        <span class="site-heading-upper mb-3">{{ __('Areas') }}</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="" href="#"
-                                       >
-                                        <span class="site-heading-upper mb-3">{{ __('Status') }}</span>
-                                    </a>
-                                </li>
-                            </ul> -->
-                            <!-- Experiment -->
-                        </li>  
+                          
                     </ul>
                     <ul class="nav-right">
                         <!-- Authentication Links -->
@@ -267,7 +239,19 @@
         <div class="page-wrapper">
             <div class="page-header">
                 <div class="page-header-title">
-                    <h4>Project Dashboard</h4>
+                    <ul class="nav nav-tabs">
+                        <li>
+                            <a href="javascript:void(0)" class="nav-link active">
+                                <h4>Project Dashboard</h4>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{{ route ('client_portal') }}" class="nav-link">
+                                <h4>Client Portal Dashboard</h4>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
                 <div class="page-header-breadcrumb">
                     <ul class="breadcrumb-title">

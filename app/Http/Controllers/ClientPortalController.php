@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+use App\ClientPortal;
+use App\Area;
+use App\Status;
+use App\BusinessType;
 
 class ClientPortalController extends Controller
 {
@@ -20,7 +24,9 @@ class ClientPortalController extends Controller
      */
     public function index()
     {
-        return view('client_portal.dashboard');
+        $clients = ClientPortal::all();
+        $areas = Area::all();
+        return view('client_portal.dashboard', compact('clients', 'areas'));
     }
 
     /**
@@ -41,7 +47,13 @@ class ClientPortalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        if (!empty($data) ) {
+            return $data;    
+        } else {
+            return false;
+        }
+        
     }
 
     /**
@@ -87,5 +99,15 @@ class ClientPortalController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getDropdownData(){
+        $data['areas'] = Area::all();
+        $data['status'] = Status::all();
+        $data['business_type'] = BusinessType::all();
+
+        $html = view('client_portal.modal')->with(compact('data'))->render();
+
+        return response()->json(['success' => true, 'html' => $html]);
     }
 }

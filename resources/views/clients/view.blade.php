@@ -88,7 +88,7 @@
                       </div>
                     </div>
                   </div>
-                </div>
+          </div>
           <!-- Another Experiment -->
         </div>
       </div>

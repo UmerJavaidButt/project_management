@@ -46,6 +46,7 @@ Route::resource('designation', 'DesignationController');
 Route::resource('recruiter', 'RecruiterController');
 Route::resource('agent', 'AgentController');
 Route::resource('milestone', 'MilestoneController');
+Route::resource('clientportal', 'ClientPortalController');
 
 /* ROUTES PROJECTS */
 Route::get('admin/project/view' , 'ProjectController@views')->name('project/view');
@@ -98,6 +99,8 @@ Route::get('milestone/release/{id}' , 'MilestoneController@releaseMilestone')->n
 
 /* ROUTES ClientPortal */
 Route::get('dashboard/client_portal' , 'ClientPortalController@index')->name('client_portal');
+Route::post('dashboard/saveClient' , 'ClientPortalController@store')->name('clientportal');
+Route::get('dashboard' , 'ClientPortalController@getDropdownData')->name('getDropdowns');
 
 /* ROUTE Logout */
 Route::get('client/details/{id}', 'AdminController@client_details')->name('client/details');
