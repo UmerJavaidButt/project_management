@@ -17,14 +17,9 @@ use Session;
 
 class AdminController extends Controller
 {
-
     public function __construct()
     {
-        
-        if (Session::has('email') && Session::has('password')) {
-            
-            return redirect ('admin');
-        }
+        $this->middleware('auth');
     }
 
 

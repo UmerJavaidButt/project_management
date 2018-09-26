@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Project Management System</title>
+    <title>Client FollowUp Portal</title>
     <!-- Meta -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -49,7 +49,7 @@
                     <i class="ti-menu"></i>
                 </a>
                 <a href="{{ url('admin') }}" class="text-white d-none d-lg-block">
-                    <span class="">Project Management</span>
+                    <span class="">Client FollowUp</span>
                 </a>
                 <a class="mobile-options">
                     <i class="ti-more"></i>
@@ -59,8 +59,8 @@
                 <div>
                     <ul class="nav-left">
                         <li class="user-profile header-notification">
-                            <a class="" href="{{ route ('client_portal') }}" >
-                                <span class="site-heading-upper mb-3">Client Portal Dashboard</span>
+                            <a class="" href="{{route('client_portal')}}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <span class="site-heading-upper mb-3">Project Management Dashboard</span>
                                 <i class="ti-angle-down"></i>
                             </a>
                                 

@@ -20,7 +20,7 @@ class ProjectController extends Controller
 {
     public function __construct()
     {
-        $today = Carbon::today();
+        $this->middleware('auth');
     }
     /**
      * Display a listing of the resource.
@@ -70,7 +70,7 @@ class ProjectController extends Controller
 
             $validator = Validator::make($request->all(), [
                 'start_date' => 'required|date|date_format:Y-m-d',
-                'deadline' => 'required|date|date_format:Y-m-d|after:start_date',
+                'deadline' => 'required|date|date_format:Y-m-d',
             ])->validate();
 
             $project = new \App\Project;

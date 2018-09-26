@@ -96,6 +96,9 @@ Route::get('admin/agents/list' , 'AgentController@view')->name('agent/view');
 Route::get('milestone/add/{id}' , 'MilestoneController@createMilestone')->name('create/milestone');
 Route::get('milestone/release/{id}' , 'MilestoneController@releaseMilestone')->name('milestone/release');
 
+/* ROUTES ClientPortal */
+Route::get('dashboard/client_portal' , 'ClientPortalController@index')->name('client_portal');
+
 /* ROUTE Logout */
 Route::get('client/details/{id}', 'AdminController@client_details')->name('client/details');
 

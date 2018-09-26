@@ -24,6 +24,8 @@ class CreateProjectsTable extends Migration
                 $table->integer('status');
                 $table->integer('assign');
                 $table->decimal('price');
+                $table->decimal('released_payment', 19,2);
+                $table->decimal('pending_payment', 19,2);
                 $table->timestamps();
             });
         }

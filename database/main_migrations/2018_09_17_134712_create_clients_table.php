@@ -19,12 +19,11 @@ class CreateClientsTable extends Migration
                 $table->string('name');
                 $table->string('email');
                 $table->integer('number');
-                $table->string('whatsapp');
+                $table->string('whatsapp')->nullble();
                 $table->string('website');
                 $table->string('business');
                 $table->string('address');
                 $table->string('country');
-                $table->string('region');
                 $table->longText('description');
                 $table->timestamps();
             });

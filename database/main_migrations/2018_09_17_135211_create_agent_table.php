@@ -20,7 +20,7 @@ class CreateAgentTable extends Migration
             $table->string('number');
             $table->string('address');
             $table->string('country');
-            $table->string('whatsapp');
+            $table->string('whatsapp')->nullable();
             $table->decimal('share', 5,2);
             $table->longText('description');
             $table->timestamps();
