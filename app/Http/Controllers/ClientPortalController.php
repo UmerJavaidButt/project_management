@@ -24,9 +24,11 @@ class ClientPortalController extends Controller
      */
     public function index()
     {
-        $clients = ClientPortal::all();
-        $areas = Area::all();
-        return view('client_portal.dashboard', compact('clients', 'areas'));
+        // $clients = ClientPortal::all();
+        // $areas = Area::all();
+        echo "Hi";
+        die();
+        return view('client_portal.comingsoon');
     }
 
     /**
