@@ -47,6 +47,9 @@ Route::resource('recruiter', 'RecruiterController');
 Route::resource('agent', 'AgentController');
 Route::resource('milestone', 'MilestoneController');
 Route::resource('clientportal', 'ClientPortalController');
+Route::resource('businesstype', 'BusinessTypeController');
+Route::resource('status', 'StatusController');
+Route::resource('area', 'AreaController');
 
 /* ROUTES PROJECTS */
 Route::get('admin/project/view' , 'ProjectController@views')->name('project/view');
@@ -98,9 +101,27 @@ Route::get('milestone/add/{id}' , 'MilestoneController@createMilestone')->name('
 Route::get('milestone/release/{id}' , 'MilestoneController@releaseMilestone')->name('milestone/release');
 
 /* ROUTES ClientPortal */
-Route::get('dashboard/client_portal' , 'ClientPortalController@index')->name('client_portal');
-Route::post('dashboard/saveClient' , 'ClientPortalController@store')->name('clientportal');
-Route::get('dashboard' , 'ClientPortalController@getDropdownData')->name('getDropdowns');
+Route::get('client_portal' , 'ClientPortalController@index')->name('client_portal');
+Route::post('client_portal/saveClient' , 'ClientPortalController@store')->name('clientportal');
+Route::get('client_portal/ajax' , 'ClientPortalController@getDropdownData')->name('getDropdowns');
+
+/* ROUTES BUSINESS TYPE */
+Route::get('client_portal/admin/preferences/businesstype' , 'BusinessTypeController@index')->name('businesstype/view');
+Route::get('client_portal/admin/preferences/add_businesstype' , 'BusinessTypeController@create')->name('add_business_type');
+Route::get('client_portal/admin/preferences/edit_businesstype/{id}' , 'BusinessTypeController@edit')->name('edit_business_type');
+Route::get('client_portal/admin/preferences/change_bt_status/{id}' , 'BusinessTypeController@changeStatus')->name('change_bt_status');
+
+/* ROUTES AREA TYPE */
+Route::get('client_portal/admin/preferences/areas' , 'AreaController@index')->name('area/view');
+Route::get('client_portal/admin/preferences/add_area' , 'AreaController@create')->name('area/create');
+Route::get('client_portal/admin/preferences/edit_area/{id}' , 'AreaController@edit')->name('area/edit');
+Route::get('client_portal/admin/preferences/change_status/{id}' , 'AreaController@changeStatus')->name('change_area_status');
+
+/* ROUTES STATUS */
+Route::get('client_portal/admin/preferences/status' , 'StatusController@index')->name('status/view');
+Route::get('client_portal/admin/preferences/add_status' , 'StatusController@create')->name('status/create');
+Route::get('client_portal/admin/preferences/edit_status/{id}' , 'StatusController@edit')->name('status/edit');
+Route::get('client_portal/admin/preferences/change_statuses_status/{id}' , 'StatusController@changeStatus')->name('change_status_status');
 
 /* ROUTE Logout */
 Route::get('client/details/{id}', 'AdminController@client_details')->name('client/details');

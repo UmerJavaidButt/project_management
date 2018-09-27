@@ -24,11 +24,11 @@ class ClientPortalController extends Controller
      */
     public function index()
     {
-        // $clients = ClientPortal::all();
-        // $areas = Area::all();
-        echo "Hi";
+        echo "ClientPortal";
         die();
-        return view('client_portal.comingsoon');
+        $clients = ClientPortal::all();
+        $areas = Area::all();
+        return view('client_portal.dashboard', compact('clients', 'areas'));
     }
 
     /**

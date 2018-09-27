@@ -234,8 +234,6 @@ body.menu-compact .slimScrollDiv,body.menu-compact .main-menu-content{overflow:v
 .btn-success:hover{
 	background: white !important;
 	color: green !important;
-	font-size: 10px !important;
-	padding: 6px 6px !important;
 }
 
 .btn_delete{
@@ -415,6 +413,9 @@ table.dataTable thead .sorting_asc:after {
     animation: slide-down 2s ease-out;
 }
 
+.client_portal_card{
+	padding: 30px !important;
+}
 @keyframes slide-down {
     0% { opacity: 0; transform: translateY(100%); }
     100% { opacity: 1; transform: translateY(0); }

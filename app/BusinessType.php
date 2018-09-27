@@ -9,6 +9,8 @@ class BusinessType extends Model
     protected $connection = 'mysql2';
     protected $table = 'business_types';
 
+    public $timestamps = false;
+
     protected $fillable = [
     	'name',
     	'status',

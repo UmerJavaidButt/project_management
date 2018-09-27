@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+use App\ClientPortal;
+use App\Area;
+use App\BusinessType;
+use App\Status;
 
 class ClientPortalController extends Controller
 {
@@ -20,7 +24,11 @@ class ClientPortalController extends Controller
      */
     public function index()
     {
-        return view('client_portal.dashboard');
+        $clients = ClientPortal::all();
+        $areas = Area::all();
+        $businesstypes = BusinessType::all();
+        $status = Status::all();
+        return view('client_portal.portal', compact('clients', 'areas', 'businesstypes', 'status'));
     }
 
     /**
@@ -41,7 +49,8 @@ class ClientPortalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        return $data;
     }
 
     /**

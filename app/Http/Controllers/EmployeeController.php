@@ -53,7 +53,7 @@ class EmployeeController extends Controller
         $employee->email = $request->get('email');
         $employee->number = $request->get('number');
         $employee->teamAssign = 0;
-        $employee->team_id = 0;
+        $employee->team_id = null;
         $employee->designation_id = $request->get('designation');
 
         $employee->save();
