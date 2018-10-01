@@ -1,13 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
+use Validator;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-use Illuminate\Http\Request;
 use App\ClientPortal;
 use App\Area;
 use App\BusinessType;
 use App\Status;
+use DB;
 
 class ClientPortalController extends Controller
 {
@@ -24,7 +26,7 @@ class ClientPortalController extends Controller
      */
     public function index()
     {
-        $clients = ClientPortal::all();
+        $clients = ClientPortal::where('delete_bit', 0)->get();
         $areas = Area::all();
         $businesstypes = BusinessType::all();
         $status = Status::all();
@@ -49,8 +51,50 @@ class ClientPortalController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
-        return $data;
+        
+        $validator = Validator::make($request->all(), [
+                'title' => 'required',
+                'email' => 'required',
+                'phone' => 'required',
+                'business_type' => 'required',
+                'area' => 'required',
+                'status' => 'required',
+        ])->validate();
+
+        DB::beginTransaction();
+        try
+        {
+            $data = $request->all();
+
+            ClientPortal::create([
+                'title' => $data['title'],
+                'email' => $data['email'],
+                'phone' => $data['phone'],
+                'website' => $data['website'],
+                'business_type' => $data['business_type'],
+                'area_id' => $data['area'],
+                'description' => $data['description'],
+                'status' => $data['status'],
+                'delete_bit' => 0,
+            ]);
+
+            DB::commit();
+            //Session::flash('update', 'Data Saved Successfully');
+            return response()->json([
+                'data' => [
+                  'msg' => 'success',
+
+                ]
+              ]);
+        } catch (Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'data' => [
+                  'msg' => 'error',
+
+                ]
+              ]);
+        }
     }
 
     /**
@@ -72,7 +116,7 @@ class ClientPortalController extends Controller
      */
     public function edit($id)
     {
-        //
+        echo "I am Edit of client";
     }
 
     /**
@@ -95,6 +139,25 @@ class ClientPortalController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::beginTransaction();
+        try
+        {  
+            $existClient = ClientPortal::find($id);        
+         
+            if(empty($existClient))
+            {
+                return "Client Does not exist";
+            }
+
+            ClientPortal::find($id)->update([
+                'delete_bit' => 1,
+            ]);
+            DB::commit();
+            return redirect()->back()->with('message', 'Deleted Successfully!');
+        } 
+        catch(Exception $e){
+            DB::rollback($e);
+            return redirect()->back()->with('message', 'Error occured while deleting!');
+        }
     }
 }

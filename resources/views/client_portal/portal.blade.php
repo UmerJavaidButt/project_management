@@ -18,8 +18,7 @@
                           <div class="ibox-title">
                             <h5><strong>Clients</strong></h5>
                             <div class="ibox-tools">
-                                <button type="button" class="btn btn-primary btn-outline-primary waves-effect md-trigger md-setperspective" 
-                                data-modal="modal-20">Add Client</button>
+                                <button class="btn btn_submit btn-primary btn-block" data-toggle="modal" data-target="#sign-in-modal">Add Client</button>
                             </div>
                           </div>
 
@@ -56,6 +55,7 @@
                                             </thead>
                                             <tbody>
                                             @foreach($clients as $client)
+                                              @if($client->delete_bit == 0)
                                               <tr>
                                                 <td>
                                                   <a href="#contact-{{$client->id}}" class="client-link">{{$client->title}}</a>
@@ -66,11 +66,11 @@
                                                     @if($area->id == $client->area_id)
                                                         {{$area->name}}
                                                     @endif
-                                                @endforeach
-                                              </td>
-                                            </tr>
-                                              
-                                            @endforeach
+                                                  @endforeach
+                                                </td>
+                                            </tr> 
+                                            @endif  
+                                          @endforeach
                                             </tbody>
                                             <tfoot>
                                               <tr>
@@ -97,7 +97,7 @@
                           <div class="tab-content">
 
                           @foreach($clients as $client)
-                          @if($i == 1)
+                          @if($i == 1) <!-- The tab pan for the first client automatically shows up -->
                             <div class="tab tab-pane active details-pane" id="contact-{{$client->id}}">
                               <div class="row m-b-lg">
                                 <div class="col-lg-12 text-center">
@@ -109,7 +109,7 @@
                                 <div class="col-lg-12 text-center">
                                   <strong>Description</strong>
                                   <p>{{$client->description}}</p>
-                                  <a href="{{ action('ClientPortalController@edit', $client->id) }}" class="btn btn-info btn_edit btn-block btn-sm">
+                                  <a type="button" href="{{ action('ClientPortalController@edit', $client->id) }}" class="btn btn-info btn_edit btn-block btn-sm">
                                     <i class="fa fa-edit"></i>Edit Client
                                   </a>
                                 </div>
@@ -117,46 +117,89 @@
                               <div class="client-detail">
                                 <strong>Details</strong>
                                 <ul class="list-group clear-list">
+
                                   <li class="list-group-item fist-item">
-                                    <span class="float-right">{{$client->email}}</span>
-                                    Email:
+                                    <div>
+                                      <span>Email:</span>
+                                    </div>
+
+                                    <div>
+                                      <span class="float-right">
+                                        <small>{{$client->email}}</small>
+                                      </span>
+                                    </div>
                                   </li>
+
                                   <li class="list-group-item fist-item">
-                                    <span class="float-right">{{$client->phone}}</span>
-                                    Number:
+                                    <div>
+                                      <span>Number:</span>
+                                    </div>
+
+                                    <div>
+                                      <span class="float-right">
+                                        <small>{{$client->phone}}</small>
+                                      </span>
+                                    </div>
                                   </li>
+
                                   <li class="list-group-item fist-item">
+                                    <div>
+                                      <span>Business Type:</span>
+                                    </div>
+
+                                    <div>
                                         @foreach($businesstypes as $bt)
                                             @if($bt->id == $client->business_type)
-                                                <span class="float-right">{{$bt->name}}</span> 
+                                                <span class="float-right">
+                                                  <small>{{$bt->name}}</small>
+                                                </span> 
                                             @endif
                                         @endforeach
-                                    Business Type:
+                                    </div>
                                   </li>
+
                                   <li class="list-group-item fist-item">
+                                    
+                                    <div>
+                                      <span>Website:</span>
+                                    </div>
+                                    
+                                    <div>
                                      @if($client->website)
-                                      <span class="float-right">{{$client->website}}</span>
+                                      <span class="float-right">
+                                        <small>{{$client->website}}</small>
+                                      </span>
                                     @else
                                       <span class="float-right">N/A</span>
                                     @endif
-                                    Website:
+                                    </div>
                                   </li>
-                                  <li class="list-group-item fist-item">
-                                     @if($client->business)
-                                      <span class="float-right">{{$client->business}}</span>
-                                    @else
-                                      <span class="float-right">N/A</span>
-                                    @endif
-                                    Business:
-                                  </li>
+                                  
                                   <li class="list-group-item fist-item">
 
+                                  <div>
+                                    <span>Status:</span>
+                                  </div>
+
+                                  <div>
                                      @foreach($status as $st)
                                         @if($st->id == $client->status)
-                                        <span class="float-right">{{$st->name}}</span>
+                                        <span class="float-right">
+                                          <small>{{$st->name}}</small>
+                                        </span>
                                         @endif
                                     @endforeach
-                                    Status:
+                                  </div>
+                                  </li>
+
+                                  <li class="list-group-item fist-item text-center">
+                                    <form action="{{ action('ClientPortalController@destroy', $client->id) }}" method="post">
+                                        @csrf
+                                        <input name="_method" type="hidden" value="DELETE">
+                                        <button class="btn btn-danger btn_delete" type="submit">
+                                          <span class="glyphicon glyphicon-trash"></span>Delete
+                                        </button>
+                                      </form>
                                   </li>
                                 </ul>
                               </div>
@@ -183,46 +226,82 @@
                                 <strong>Details</strong>
                                 <ul class="list-group clear-list">
                                   <li class="list-group-item fist-item">
-                                    <span class="float-right">{{$client->email}}</span>
-                                    Email:
+                                    <div>
+                                      <span>Email:</span>
+                                    </div>
+                                    <div>
+                                      <span class="float-right">
+                                          <small>{{$client->email}}</small>
+                                      </span>
+                                    </div>
+                                  </li>
+
+                                  <li class="list-group-item fist-item">
+                                    <div>
+                                      <span>Number:</span>
+                                    </div>
+
+                                    <div>
+                                      <span class="float-right">
+                                          <small>{{$client->phone}}</small>
+                                      </span>
+                                    </div>
                                   </li>
                                   <li class="list-group-item fist-item">
-                                    <span class="float-right">{{$client->phone}}</span>
-                                    Number:
-                                  </li>
-                                  <li class="list-group-item fist-item">
+                                    <div class="">
+                                      <span class="">Business Type:</span>
+                                    </div>
+                                    <div>
                                         @foreach($businesstypes as $bt)
                                             @if($bt->id == $client->business_type)
-                                                <span class="float-right">{{$bt->name}}</span> 
+                                                <span class="float-right">
+                                                    <small>{{$bt->name}}</small>
+                                                </span> 
                                             @endif
                                         @endforeach
-                                    Business Type:
+                                    </div>
                                   </li>
+
                                   <li class="list-group-item fist-item">
+                                    <div>
+                                      <span>Website:</span>
+                                    </div>
+                                    
+                                    <div class="">
                                      @if($client->website)
-                                      <span class="float-right">{{$client->website}}</span>
+                                      <span class="float-right"> 
+                                        <small>{{$client->website}}</small>
+                                      </span>
                                     @else
                                       <span class="float-right">N/A</span>
                                     @endif
-                                    Website:
+                                    </div>
                                   </li>
+
                                   <li class="list-group-item fist-item">
-                                     @if($client->business)
-                                      <span class="float-right">{{$client->business}}</span>
-                                    @else
-                                      <span class="float-right">N/A</span>
-                                    @endif
-                                    Business:
-                                  </li>
-                                  <li class="list-group-item fist-item">
+                                    <div>
+                                      <span>Status:</span>
+                                    </div>
 
                                      @foreach($status as $st)
                                         @if($st->id == $client->status)
-                                        <span class="float-right">{{$st->name}}</span>
+                                        <span class="float-right">
+                                            <small>{{$st->name}}</small>
+                                        </span>
                                         @endif
                                     @endforeach
-                                    Status:
                                   </li>
+
+                                  <li class="list-group-item fist-item text-center">
+                                    <form action="{{ action('ClientPortalController@destroy', $client->id) }}" method="post">
+                                        @csrf
+                                        <input name="_method" type="hidden" value="DELETE">
+                                        <button class="btn btn-danger btn_delete" type="submit">
+                                          <span class="glyphicon glyphicon-trash"></span>Delete
+                                        </button>
+                                      </form>
+                                  </li>
+
                                 </ul>
                               </div>
                             </div>
@@ -238,7 +317,164 @@
                   </div>
                 </div>
 
-                <!-- Add Contact Start Model -->
+                <!-- Add Client Start Model -->
+
+                <div class="modal fade" id="sign-in-modal" tabindex="-1">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Register Client Details</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body p-b-0">
+                              <form class="form" action="" method="" id="client_form">
+                              @csrf
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon1"><i class="icofont icofont-user"></i></span>
+                                    <input type="text" name="title" class="form-control" placeholder="Client Name" value="{{ old('title') }}" required autofocus>
+                                </div>
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
+                                    <input type="email" name="email" class="form-control" placeholder="Client Email" value="{{ old('email') }}" required>
+                                </div>
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon1"><i class="icofont icofont-user"></i></span>
+                                    <input type="text" name="phone" class="form-control" placeholder="Phone Number" value="{{ old('phone') }}" required>
+                                </div>
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon4"><i class="icofont icofont-user"></i></span>
+                                    <input type="url" name = "website" class="form-control" placeholder="Website">
+                                </div>
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon5"><i class="icofont icofont-user"></i></span>
+                                    <select class="form-control" name="business_type">
+                                    <option value="">---Select Business Type---</option>
+                                    @foreach($businesstypes as $bt)
+                                    <option value="{{$bt->id}}">{{$bt->name}}</option>
+                                    @endforeach
+                                    </select>
+                                </div>
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon6"><i class="icofont icofont-user"></i></span>
+                                    <select class="form-control" name="area">
+                                    <option value="">---Select Area---</option>
+                                    @foreach($areas as $area)
+                                    <option value="{{$area->id}}">{{$area->name}}</option>
+                                    @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon6"><i class="icofont icofont-user"></i></span>
+                                    <select class="form-control" name="status">
+                                    <option value="">---Select Current Status---</option>
+                                    @foreach($status as $st)
+                                    <option value="{{$st->id}}">{{$st->name}}</option>
+                                    @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon7"><i class="icofont icofont-user"></i></span>
+                                    <textarea id="dropper-default" name="description" class="form-control" type="textarea" placeholder="Description..."></textarea>
+                                </div>
+                              </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" id="modal_submit" class="btn btn-primary btn_submit">Add Client</button>
+                                <button type="button" class="btn btn_danger btn-danger" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add Client modal end -->
+
+                <!-- Edit Client Model -->
+
+                <div class="modal fade" id="edit-modal" tabindex="-1">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Edit Client Details</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body p-b-0">
+                              <form class="form" action="" method="" id="client_form">
+                              @csrf
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon1"><i class="icofont icofont-user"></i></span>
+                                    <input type="text" name="title" class="form-control" placeholder="Client Name" value="{{ old('title') }}" required autofocus>
+                                </div>
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
+                                    <input type="email" name="email" class="form-control" placeholder="Client Email" value="{{ old('email') }}" required>
+                                </div>
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon1"><i class="icofont icofont-user"></i></span>
+                                    <input type="text" name="phone" class="form-control" placeholder="Phone Number" value="{{ old('phone') }}" required>
+                                </div>
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon4"><i class="icofont icofont-user"></i></span>
+                                    <input type="url" name = "website" class="form-control" placeholder="Website">
+                                </div>
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon5"><i class="icofont icofont-user"></i></span>
+                                    <select class="form-control" name="business_type">
+                                    <option value="">---Select Business Type---</option>
+                                    @foreach($businesstypes as $bt)
+                                    <option value="{{$bt->id}}">{{$bt->name}}</option>
+                                    @endforeach
+                                    </select>
+                                </div>
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon6"><i class="icofont icofont-user"></i></span>
+                                    <select class="form-control" name="area">
+                                    <option value="">---Select Area---</option>
+                                    @foreach($areas as $area)
+                                    <option value="{{$area->id}}">{{$area->name}}</option>
+                                    @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon6"><i class="icofont icofont-user"></i></span>
+                                    <select class="form-control" name="status">
+                                    <option value="">---Select Current Status---</option>
+                                    @foreach($status as $st)
+                                    <option value="{{$st->id}}">{{$st->name}}</option>
+                                    @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon7"><i class="icofont icofont-user"></i></span>
+                                    <textarea id="dropper-default" name="description" class="form-control" type="textarea" placeholder="Description..."></textarea>
+                                </div>
+                              </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" id="modal_submit" class="btn btn-primary btn_submit">Add Client</button>
+                                <button type="button" class="btn btn_danger btn-danger" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Edit Client modal end -->
+
+
+
+
+
+
+
+
+
+
+
                 <div class="md-modal md-effect-19" id="modal-20">
                     <div class="md-content">
                         <h3 class="f-26">Add Client</h3>
@@ -263,7 +499,7 @@
                             </div>
                             <div class="input-group">
                                 <span class="input-group-addon" id="basic-addon5"><i class="icofont icofont-user"></i></span>
-                                <select type="number" class="form-control" name="b_type">
+                                <select type="text" class="form-control" name="b_type">
                                 <option value="">---Select Business Type---</option>
                                 @foreach($businesstypes as $bt)
                                 <option value="{{$bt->id}}">{{$bt->name}}</option>
@@ -296,12 +532,15 @@
                                 <button type="button" id="modal_submit" class="btn btn_submit btn-primary waves-effect m-r-20 f-w-600 d-inline-block">Save</button>
                                 <button type="button" class="btn btn_danger btn-danger waves-effect m-r-20 f-w-600 md-close d-inline-block">Close</button>
                             </div>
-                           </form> 
+                          </form> 
                         </div>
                     </div>
                 </div>
                 <div class="md-overlay"></div>
 
             </div>
+
+<button type="button" style="display:none" class="btn btn-success btn-sm" id="pnotify-success">Click here! <i class="icofont icofont-play-alt-2"></i></button>
+<button type="button" style="display:none" class="btn btn-success btn-sm" id="pnotify-danger">Click here! <i class="icofont icofont-play-alt-2"></i></button>
 
 @endsection

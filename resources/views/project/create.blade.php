@@ -61,7 +61,7 @@
 
                                     <div class="col-md-7">
                                         <select name="client_id" class="form-control">
-                                        <option>~None~</option>
+                                        <option value="">~None~</option>
                                         @foreach($clients as $client)
                                               <option value="{{$client['id']}}">{{$client['name']}}</option>
                                         @endforeach                            
@@ -74,7 +74,7 @@
 
                                     <div class="col-md-7">
                                         <select name="agent_id" class="form-control">
-                                        <option>~None~</option>
+                                        <option value="">~None~</option>
                                         @foreach($recs as $rec)
                                               <option value="{{ $rec['id'] }}">{{$rec['name']}}</option>
                                         @endforeach                            

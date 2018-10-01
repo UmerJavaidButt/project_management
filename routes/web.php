@@ -103,7 +103,6 @@ Route::get('milestone/release/{id}' , 'MilestoneController@releaseMilestone')->n
 /* ROUTES ClientPortal */
 Route::get('client_portal' , 'ClientPortalController@index')->name('client_portal');
 Route::post('client_portal/saveClient' , 'ClientPortalController@store')->name('clientportal');
-Route::get('client_portal/ajax' , 'ClientPortalController@getDropdownData')->name('getDropdowns');
 
 /* ROUTES BUSINESS TYPE */
 Route::get('client_portal/admin/preferences/businesstype' , 'BusinessTypeController@index')->name('businesstype/view');

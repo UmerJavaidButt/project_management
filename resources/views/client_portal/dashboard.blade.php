@@ -19,15 +19,28 @@
     <link rel="stylesheet" type="text/css" href = "{{ asset('bootstrap/css/bootstrap.min.css') }}">
 
     <!-- sweet alert framework -->
-    <link rel="stylesheet" type="text/css" href="asset('dashboard_assets/bower_components/sweetalert/dist/sweetalert.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('dashboard_assets/bower_components/sweetalert/dist/sweetalert.css') }}">
 
     <!-- themify-icons line icon -->
     <link rel="stylesheet" type="text/css" href= "{{ asset('dashboard_assets/assets/icon/themify-icons/themify-icons.css') }}">
-    
+
     <!-- ico font -->
     <link rel="stylesheet" type="text/css" href= "{{ asset('dashboard_assets/assets/icon/icofont/css/icofont.css') }}">
     <!-- flag icon framework css -->
     <link rel="stylesheet" type="text/css" href= "{{ asset('dashboard_assets/assets/pages/flag-icon/flag-icon.min.css') }}">
+    
+    <!-- Data Table Css -->
+    <link rel="stylesheet" type="text/css" href="{{ asset ('dashboard_assets/bower_components/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset ('dashboard_assets/assets/pages/data-table/css/buttons.dataTables.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset ('dashboard_assets/bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}">
+
+    <!-- notify js Fremwork -->
+    <link rel="stylesheet" type="text/css" href="{{ asset ('dashboard_assets/bower_components/pnotify/dist/pnotify.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset ('dashboard_assets/bower_components/pnotify/dist/pnotify.brighttheme.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset ('dashboard_assets/bower_components/pnotify/dist/pnotify.buttons.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset ('dashboard_assets/bower_components/pnotify/dist/pnotify.history.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset ('dashboard_assets/bower_components/pnotify/dist/pnotify.mobile.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset ('dashboard_assets/assets/pages/pnotify/notify.css') }}">
 
     <!-- animation nifty modal window effects css -->
     <link rel="stylesheet" type="text/css" href="{{ asset('dashboard_assets/assets/css/component.css') }}">
@@ -186,10 +199,14 @@
     <div id="app"></div>
 
     <!-- Required Jquery -->
-    <script type="text/javascript" src= "{{ asset('dashboard_assets/jquery/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('dashboard_assets/jquery/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('dashboard_assets/jquery-ui/jquery-ui.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('dashboard_assets/bower_components/tether/dist/js/tether.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
     
+    <!-- classie js -->
+    <script type="text/javascript" src="{{ asset('dashboard_assets/bower_components/classie/classie.js') }}"></script>
+
     <!-- data-table js -->
     <script src="{{asset('dashboard_assets/bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{asset('dashboard_assets/bower_components/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
@@ -197,12 +214,22 @@
     <script src="{{asset('dashboard_assets/bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{asset('dashboard_assets/bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
     
-    <!-- classie js -->
-    <script type="text/javascript" src="{{ asset('dashboard_assets/bower_components/classie/classie.js') }}"></script>    
-
     <!-- sweet alert js -->
-    <script type="text/javascript" src="{{ asset('dashboard_assets/bower_components/sweetalert/dist/sweetalert.min.js') }}"></script>
+    <script type="text/javascript" src= "{{ asset('dashboard_assets/bower_components/sweetalert/dist/sweetalert.min.js') }}"></script>
     <!-- sweet alert modal.js intialize js -->
+
+    <!-- pnotify js -->
+    <script type="text/javascript" src="{{asset('dashboard_assets/bower_components/pnotify/dist/pnotify.js') }}"></script>
+    <script type="text/javascript" src="{{asset('dashboard_assets/bower_components/pnotify/dist/pnotify.desktop.js') }}"></script>
+    <script type="text/javascript" src="{{asset('dashboard_assets/bower_components/pnotify/dist/pnotify.buttons.js') }}"></script>
+    <script type="text/javascript" src="{{asset('dashboard_assets/bower_components/pnotify/dist/pnotify.confirm.js') }}"></script>
+    <script type="text/javascript" src="{{asset('dashboard_assets/bower_components/pnotify/dist/pnotify.callbacks.js') }}"></script>
+    <script type="text/javascript" src="{{asset('dashboard_assets/bower_components/pnotify/dist/pnotify.animate.js') }}"></script>
+    <script type="text/javascript" src="{{asset('dashboard_assets/bower_components/pnotify/dist/pnotify.history.js') }}"></script>
+    <script type="text/javascript" src="{{asset('dashboard_assets/bower_components/pnotify/dist/pnotify.mobile.js') }}"></script>
+    <script type="text/javascript" src="{{asset('dashboard_assets/bower_components/pnotify/dist/pnotify.nonblock.js') }}"></script>
+    <script type="text/javascript" src="{{asset('dashboard_assets/assets/pages/pnotify/notify.js') }}"></script>
+
     <!-- modalEffects js nifty modal window effects -->
     <script type="text/javascript" src="{{ asset('dashboard_assets/assets/js/modalEffects.js') }}"></script>
     
@@ -212,6 +239,7 @@
     
     <!-- Custom js -->
     <script type="text/javascript" src="{{ asset('dashboard_assets/assets/js/script.js') }}"></script>
+    <script src="{{asset('dashboard_assets/assets/pages/data-table/js/data-table-custom.js') }}"></script>
 
 </body>
 
@@ -230,19 +258,31 @@
         type:"post",
         data:value,
         dataType:"json",
-        success:function(status){
+        success: function( data ) {
+            $( "#pnotify-success" ).trigger( "click" );
+            $('#client_form')[0].reset();
+            $( "#sign-in-modal" ).modal( "hide" );
+       },
+       error: function(xhr, status, error) {
+          $( "#pnotify-danger" ).trigger( "click" );
+       },
+        // success:function(status){
 
-          if(status.msg=='success'){
-            notify('Success! ', status.response, 'success');
-            $(btn).button('reset');
-            $('#add_client')[0].reset();
-            $( "#add_contact" ).modal( "hide" );
-          }
-          else if(status.msg == 'error'){
-            notify('Error! ', status.response, 'danger');
-            $(btn).button('reset');
-          }
-        }
+        //   if(status.msg=='success'){
+        //     alert('Success');
+        //     $( "#pnotify-success" ).trigger( "click" );
+            //notify('Success! ', status.response, 'success');
+            //$(".ui-pnotify-title").text("Success");
+            //$(".ui-pnotify-title").text("Data saved Successfully!");
+            // $(btn).button('reset');
+            // $('#client_form')[0].reset();
+            // $( "#sign-in-modal" ).modal( "hide" );
+          // }
+          // else if(status.msg == 'error'){
+          //   notify('Error! ', status.response, 'danger');
+          //   $(btn).button('reset');
+          // }
+        //}
       });
     });
 </script>

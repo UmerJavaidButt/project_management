@@ -72,7 +72,7 @@
                                       </form>
                                   </td>
                                 </tr>
-                                  
+
                                 @endforeach
                                 </tbody>
                                 <tfoot>

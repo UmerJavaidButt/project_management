@@ -42,8 +42,8 @@ $(function() {
     // Success notification
     $('#pnotify-success').on('click', function () {
         new PNotify({
-            title: 'Success notice',
-            text: 'Check me out! I\'m a notice.',
+            title: 'Success',
+            text: 'Data has been Successfully Saved!',
             icon: 'icofont icofont-info-circle',
             type: 'success'
         });
@@ -64,8 +64,8 @@ $(function() {
     // Danger notification
     $('#pnotify-danger').on('click', function () {
         new PNotify({
-            title: 'Danger notice',
-            text: 'Check me out! I\'m a notice.',
+            title: 'Error',
+            text: 'An error occured while saving data.',
             icon: 'icofont icofont-info-circle',
             type: 'error'
         });
