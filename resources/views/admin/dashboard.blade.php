@@ -114,21 +114,6 @@
 
                     <li class="nav-item">
                         <a href="javascript:void(0)">
-                            <i class="ti-home has-class"></i>
-                            <span data-i18n="nav.dash.main">Manage Projects</span>
-                        </a>
-                        <ul class="tree-1">
-                        <li>
-                            <a href="{{ url('project/create') }}" data-i18n="nav.dash.default"> Add Project Details </a></li>
-                        <li>
-                            <li><a href="{{ route ('project/view') }}" data-i18n="nav.dash.ecommerce"> View All Projects </a></li>
-                            <!--  -->
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="javascript:void(0)">
                             <i class="ti-home"></i>
                             <span data-i18n="nav.dash.main">Manage Cleints</span>
                         </a>
@@ -142,6 +127,22 @@
                         </ul>
                     </li>
 
+                    
+                    <li class="nav-item">
+                        <a href="javascript:void(0)">
+                            <i class="ti-home has-class"></i>
+                            <span data-i18n="nav.dash.main">Manage Projects</span>
+                        </a>
+                        <ul class="tree-1">
+                        <li>
+                            <a href="{{ url('project/create') }}" data-i18n="nav.dash.default"> Add Project Details </a></li>
+                        <li>
+                            <li><a href="{{ route ('project/view') }}" data-i18n="nav.dash.ecommerce"> View All Projects </a></li>
+                            <!--  -->
+                            </li>
+                        </ul>
+                    </li>
+                     
                     <li class="nav-item">
                         <a href="javascript:void(0)">
                             <i class="ti-home"></i>
@@ -228,6 +229,20 @@
                             </li>
                         </ul>
                     </li>
+
+                    <li class="nav-item">
+                        <a href="javascript:void(0)">
+                            <i class="ti-home"></i>
+                            <span data-i18n="nav.dash.main">Register Roles</span>
+                        </a>
+
+                        <ul class="tree-1">
+                            <li>
+                                <a href="{{ route('admin/registerRole') }}" data-i18n="nav.dash.default"> Register Agent </a>
+                            </li>
+                        </ul>
+                    </li>
+
                 </ul>
             </ul>    
         </div>        
@@ -240,6 +255,7 @@
             <div class="page-header">
                 <div class="page-header-title">
                     <ul class="nav nav-tabs">
+
                         <li>
                             <a href="javascript:void(0)" class="nav-link active">
                                 <h4>Project Dashboard</h4>
@@ -253,6 +269,7 @@
                         </li>
                     </ul>
                 </div>
+                
                 <div class="page-header-breadcrumb">
                     <ul class="breadcrumb-title">
                         <li class="breadcrumb-item">
@@ -578,6 +595,7 @@
                     <!-- Todo card end -->
                 </div>
             </div>
+            
         </div>
     </div>
 

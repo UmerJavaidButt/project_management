@@ -38,6 +38,7 @@
 				                                <button type="submit" class="btn btn_submit">
 				                                    {{ __('Update Area') }}
 				                                </button>
+				                                <button type="button" class="btn btn-danger alert-success-cancel-area m-b-10" id="bt-edit" data-id = "{{$area->id}}">Delete</button>
 				                            </div>
 				                        </div>
 						            </form>

@@ -38,6 +38,9 @@
 				                                <button type="submit" class="btn btn_submit">
 				                                    {{ __('Update Business Type') }}
 				                                </button>
+				                                <button type="button" class="btn btn-danger alert-success-cancel-bt m-b-10" id="bt-edit" data-id = "{{$businesstype->id}}">Delete</button>
+				                                <!-- <a href="{{route('delete/businesstype', $businesstype->id)}}" class="btn btn-danger">Delete</a> -->
+				                                
 				                            </div>
 				                        </div>
 						            </form>

@@ -6,22 +6,33 @@
         <div id="page-content-wrapper">
             <div class="container">
                 <div class="heading text-center">
-                    <h1>Update Client Details</h1>
+                    <h1>Update Milestone</h1>
                 </div>
             </div>
         </div>
+
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="card">
                     <div class="card-body">
-                        <form method="POST" action="{{action('ClientController@update', $id)}}" aria-label="{{ __('Update Client') }}">
+                        <form method="POST" action="{{action('MilestoneController@update', $id)}}" aria-label="{{ __('Update Milestone') }}">
                         @csrf
                         <input name="_method" type="hidden" value="PATCH">
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Milestone Name') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ $client['name'] }}" required autofocus>
+                                <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ $milestone['name'] }}" required autofocus>
 
                                 @if ($errors->has('name'))
                                     <span class="invalid-feedback" role="alert">
@@ -32,52 +43,20 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                            <label for="number" class="col-md-4 col-form-label text-md-right">{{ __('Cost (in $)') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ $client['email'] }}" required>
-
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
+                                <input type="number" placeholder="0.00" required name="cost" min="0" max="{{$limit}}" value="{{$milestone->cost}}" step="0.01" title="Cost for Milestone" pattern="^\d+(?:\.\d{1,2})?$" onblur="
+                                this.parentNode.parentNode.style.backgroundColor=/^\d+(?:\.\d{1,2})?$/.test(this.value)?'inherit':'red'" class="form-control">
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="country" class="col-md-4 col-form-label text-md-right">{{ __('Country') }}</label>
+                            <label for="date" class="col-md-4 col-form-label text-md-right">{{ __('Date') }}</label>
 
                             <div class="col-md-6">
-                                <input id="country" type="text" class="form-control{{ $errors->has('country') ? ' is-invalid' : '' }}" name="country" value="{{ $client['country'] }}" required autofocus>
-
-                                @if ($errors->has('country'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('country') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="region" class="col-md-4 col-form-label text-md-right">{{ __('Region (Optional)') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="region" type="text" class="form-control{{ $errors->has('region') ? ' is-invalid' : '' }}" name="region" value="{{ $client['region'] }}" autofocus>
-
-                                @if ($errors->has('region'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('region') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="number" class="col-md-4 col-form-label text-md-right">{{ __('Number') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="number" type="text" class="form-control" name="number" value="{{ $client['number'] }}" required>
+                                <input type="date" name="date" class="date form-control" id="datepicker" min="{{$project->start_date}}" max="{{$project->deadline}}" required>
+                                <span class="label label-info">Date must be between {{$project->start_date}} and {{$project->deadline}}</span>
                             </div>
                         </div>
 
@@ -85,8 +64,7 @@
                             <label for="description" class="col-md-4 col-form-label text-md-right">{{ __('Brief Description') }}</label>
 
                             <div class="col-md-6">
-                                <textarea id="description" type="textarea" class="form-control" name="description" required> {{ $client['description'] }}
-                                </textarea>
+                                <textarea id="description" type="textarea" placeholder="Description" class="form-control" name="description" required>{{$milestone->description}}</textarea>
                             </div>
                         </div>
 

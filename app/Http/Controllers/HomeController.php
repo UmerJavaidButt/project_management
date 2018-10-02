@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -24,6 +25,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return redirect('admin');
+        if (\Auth::user()->type == 'admin') {
+            return redirect()->route('admin');
+        } elseif (\Auth::user()->type == 'agent') {
+            return redirect()->route('agent');
+        }
+        
     }
 }

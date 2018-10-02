@@ -22,6 +22,9 @@ class AdminController extends Controller
         $this->middleware('auth');
     }
 
+    public function agent(){
+        echo "Agent";
+    }
 
 	public function admin()
     {

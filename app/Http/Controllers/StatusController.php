@@ -16,7 +16,7 @@ class StatusController extends Controller
 
 
     public function index(){
-    	$statuses = Status::all();
+    	$statuses = Status::where('is_deleted', '0')->get();
     	return view('status.view', compact('statuses'));
     }
 
@@ -40,11 +40,11 @@ class StatusController extends Controller
             $existStatus->save();
 
             DB::commit();
-            Session::flash('update', 'Area Updated Successfully');
-            return back()->with('update', 'Area Successfully Saved');
+            Session::flash('update', 'Status Updated Successfully');
+            return back()->with('update', 'Status Successfully Saved');
         } catch (Exception $e) {
             DB::rollback();
-            return back()->with('error_messages', 'Error in Saving Area');
+            return back()->with('error_messages', 'Error in Saving Status');
         }
     }
 
@@ -68,6 +68,26 @@ class StatusController extends Controller
         } catch (Exception $e) {
             DB::rollback();
             return back()->with('error_messages', 'Error in Changing Status');
+        }
+    }
+
+    public function delete($id){
+        DB::beginTransaction();
+        try
+        {
+            //$data = $request->all();
+            $existStatus = Status::where('id', $id)->first();
+            if($existStatus->is_deleted == 0){
+                $existStatus->is_deleted = 1;
+                $existStatus->save();
+            }
+
+            DB::commit();
+            Session::flash('update', 'Status deleted Successfully');
+            return redirect()->route('status/view')->with('update', 'Status Successfully Deleted');
+        } catch (Exception $e) {
+            DB::rollback();
+            return back()->with('error_messages', 'Error in deleting Status');
         }
     }
 }

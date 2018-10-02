@@ -15,7 +15,7 @@ class AreaController extends Controller
     }
 
     public function index(){
-    	$areas = Area::all();
+    	$areas = Area::where('is_deleted', '=', 0)->get();
     	return view('areas.view', compact('areas'));
     }
 
@@ -87,6 +87,26 @@ class AreaController extends Controller
         } catch (Exception $e) {
             DB::rollback();
             return back()->with('error_messages', 'Error in Saving Area');
+        }
+    }
+
+    public function delete($id){
+        DB::beginTransaction();
+        try
+        {
+            //$data = $request->all();
+            $existArea = Area::where('id', $id)->first();
+            if($existArea->is_deleted == 0){
+                $existArea->is_deleted = 1;
+                $existArea->save();
+            }
+
+            DB::commit();
+            Session::flash('update', 'Area deleted Successfully');
+            return redirect()->route('area/view')->with('update', 'Area Successfully deleted');
+        } catch (Exception $e) {
+            DB::rollback();
+            return back()->with('error_messages', 'Error in deleting Area');
         }
     }
 }

@@ -36,7 +36,7 @@ class MilestoneController extends Controller
     {
         $project = Project::find($id);
 
-        $limit = ( $project->pending_payment ) - ( $project->released_payment );
+        $limit = $project->pending_payment;
         return view ('milestones.create', compact('project', 'limit'));
     }
 
@@ -108,7 +108,7 @@ class MilestoneController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function editMilestone($id)
     {
         $milestone = Milestone::with('project')
                                 ->where('id', '=', $id)
@@ -152,7 +152,6 @@ class MilestoneController extends Controller
             $milestone->cost = $request->get('cost');
             $milestone->date = $request->get('date');
             $milestone->description = $request->get('description');
-            $milestone->status = 0;
 
             $milestone->save();
             DB::commit();
@@ -189,8 +188,18 @@ class MilestoneController extends Controller
         try{
             $milestone = \App\Milestone::find($id);
             
-            if ($milestone->status != 1) {
+            if ($milestone->status == 0) {
                 $milestone->status = 1;
+                $milestone->save();
+
+                DB::commit();
+                return redirect()->back();
+
+                //$update = $this->updateProject($milestone->project_id, $milestone->cost);
+                //if ($update) {
+                //}
+            } elseif ($milestone->status == 1) {
+                $milestone->status = 2;
                 $milestone->save();
 
                 $update = $this->updateProject($milestone->project_id, $milestone->cost);

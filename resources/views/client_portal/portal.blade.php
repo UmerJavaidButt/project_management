@@ -51,6 +51,7 @@
                                               <tr>
                                                 <th>Name</th>
                                                 <th>Area</th>
+                                                <th>Status</th>
                                               </tr>
                                             </thead>
                                             <tbody>
@@ -68,6 +69,15 @@
                                                     @endif
                                                   @endforeach
                                                 </td>
+                                                <td>
+                                                  @foreach($status as $st)
+                                                    @if($st->id == $client->status)
+                                                    <span class="float-right">
+                                                      {{$st->name}}
+                                                    </span>
+                                                    @endif
+                                                @endforeach
+                                                </td>
                                             </tr> 
                                             @endif  
                                           @endforeach
@@ -76,6 +86,7 @@
                                               <tr>
                                                 <th>Name</th>
                                                 <th>Area</th>
+                                                <th>Status</th>
                                               </tr>
                                             </tfoot>
                                           </table>

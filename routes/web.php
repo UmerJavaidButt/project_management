@@ -11,10 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
 Route::get('/logout', function(){
@@ -24,7 +20,9 @@ Route::get('/logout', function(){
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('agent/dashboard', 'ClientPortalController@index')->middleware('isAgent')->name('agent');
 Route::get('/admin', 'AdminController@admin')->middleware('isAdmin')->name('admin');
+
 
 /* ROUTES ADMIN */
 Route::get('admin/dashboard/paused_projects', 'AdminController@pausedProjects')->name('admin/paused_projects');
@@ -32,6 +30,10 @@ Route::get('admin/dashboard/completed_projects', 'AdminController@completeProjec
 Route::get('admin/dashboard/upcoming_projects', 'AdminController@upcomingProjects')->name('admin/upcoming_projects');
 Route::get('admin/dashboard/open_projects', 'AdminController@openProjects')->name('admin/open_projects');
 Route::get('admin/projectDetails/{id}', 'AdminController@projectDetails')->name('admin/projectDetails');
+
+/* ROUTES ROLES */
+Route::get('admin/register/agent', 'RolesController@registerRole')->name('admin/registerRole');
+Route::post('admin/agent/register', 'RolesController@registerAgent')->name('registerAgent');
 
 /* RESOURCES for routing */
 Route::resource('project', 'ProjectController');
@@ -96,8 +98,9 @@ Route::get('admin/recruiter/view' , 'RecruiterController@view')->name('recruiter
 /* ROUTES Agent */
 Route::get('admin/agents/list' , 'AgentController@view')->name('agent/view');
 
-/* ROUTES Agent */
+/* ROUTES Milestone */
 Route::get('milestone/add/{id}' , 'MilestoneController@createMilestone')->name('create/milestone');
+Route::get('milestone/edit/{id}' , 'MilestoneController@editMilestone')->name('milestone/edit');
 Route::get('milestone/release/{id}' , 'MilestoneController@releaseMilestone')->name('milestone/release');
 
 /* ROUTES ClientPortal */
@@ -109,18 +112,21 @@ Route::get('client_portal/admin/preferences/businesstype' , 'BusinessTypeControl
 Route::get('client_portal/admin/preferences/add_businesstype' , 'BusinessTypeController@create')->name('add_business_type');
 Route::get('client_portal/admin/preferences/edit_businesstype/{id}' , 'BusinessTypeController@edit')->name('edit_business_type');
 Route::get('client_portal/admin/preferences/change_bt_status/{id}' , 'BusinessTypeController@changeStatus')->name('change_bt_status');
+Route::get('client_portal/admin/preferences/delete_businesstype' , 'BusinessTypeController@delete')->name('delete/businesstype');
 
 /* ROUTES AREA TYPE */
 Route::get('client_portal/admin/preferences/areas' , 'AreaController@index')->name('area/view');
 Route::get('client_portal/admin/preferences/add_area' , 'AreaController@create')->name('area/create');
 Route::get('client_portal/admin/preferences/edit_area/{id}' , 'AreaController@edit')->name('area/edit');
 Route::get('client_portal/admin/preferences/change_status/{id}' , 'AreaController@changeStatus')->name('change_area_status');
+Route::get('client_portal/admin/preferences/delete_area/{id}' , 'AreaController@delete')->name('delete/area');
 
 /* ROUTES STATUS */
 Route::get('client_portal/admin/preferences/status' , 'StatusController@index')->name('status/view');
 Route::get('client_portal/admin/preferences/add_status' , 'StatusController@create')->name('status/create');
 Route::get('client_portal/admin/preferences/edit_status/{id}' , 'StatusController@edit')->name('status/edit');
 Route::get('client_portal/admin/preferences/change_statuses_status/{id}' , 'StatusController@changeStatus')->name('change_status_status');
+Route::get('client_portal/admin/preferences/delete_status/{id}' , 'StatusController@delete')->name('delete/status');
 
 /* ROUTE Logout */
 Route::get('client/details/{id}', 'AdminController@client_details')->name('client/details');

@@ -15,7 +15,7 @@ class BusinessTypeController extends Controller
     }
 
     public function index(){
-    	$businesstypes = BusinessType::all();
+    	$businesstypes = BusinessType::where('is_deleted', '=', '0')->get();
     	return view('businesstype.view', compact('businesstypes'));
     }
 
@@ -87,6 +87,29 @@ class BusinessTypeController extends Controller
             DB::commit();
             Session::flash('update', 'Business Type Status changed Successfully');
             return back()->with('update', 'Business Type Status Successfully Changed');
+        } catch (Exception $e) {
+            DB::rollback();
+            return back()->with('error_messages', 'Error in Changing Business Type Status');
+        }
+    }
+
+    public function delete(Request $request)
+    {
+        DB::beginTransaction();
+        try
+        {
+            $data = $request->all();
+            $id = $data->id;
+
+            $existBusinessType = BusinessType::where('id', $id)->first();
+                if($existBusinessType->is_deleted == 0){
+                    $existBusinessType->is_deleted = 1;
+                    $existBusinessType->save();
+                }
+
+                DB::commit();
+                Session::flash('update', 'Business Type Status changed Successfully');
+                return redirect()->route('businesstype/view')->with('update', 'Business Type Status Successfully Changed');
         } catch (Exception $e) {
             DB::rollback();
             return back()->with('error_messages', 'Error in Changing Business Type Status');

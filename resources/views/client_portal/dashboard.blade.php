@@ -166,11 +166,13 @@
             <div class="page-header">
                 <div class="page-header-title">
                     <ul class="nav nav-tabs">
+                    @if(!(\Auth::user()->agent) )
                         <li>
                             <a href="{{route('admin')}}" class="nav-link">
                                 <h4>Project Dashboard</h4>
                             </a>
                         </li>
+                    @endif
 
                         <li>
                             <a href="javascript:void(0)" class="nav-link active">
@@ -216,7 +218,13 @@
     
     <!-- sweet alert js -->
     <script type="text/javascript" src= "{{ asset('dashboard_assets/bower_components/sweetalert/dist/sweetalert.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('dashboard_assets/assets/js/modalEffects.js') }}"></script>
+    
     <!-- sweet alert modal.js intialize js -->
+
+    <!-- modalEffects js nifty modal window effects -->
+    
+    <script type="text/javascript" src="{{ asset('dashboard_assets/assets/js/classie.js') }}"></script>
 
     <!-- pnotify js -->
     <script type="text/javascript" src="{{asset('dashboard_assets/bower_components/pnotify/dist/pnotify.js') }}"></script>
@@ -230,8 +238,6 @@
     <script type="text/javascript" src="{{asset('dashboard_assets/bower_components/pnotify/dist/pnotify.nonblock.js') }}"></script>
     <script type="text/javascript" src="{{asset('dashboard_assets/assets/pages/pnotify/notify.js') }}"></script>
 
-    <!-- modalEffects js nifty modal window effects -->
-    <script type="text/javascript" src="{{ asset('dashboard_assets/assets/js/modalEffects.js') }}"></script>
     
 
     <!-- Horizontal-Timeline js -->

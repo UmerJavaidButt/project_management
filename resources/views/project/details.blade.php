@@ -332,22 +332,31 @@
                                 </td>
                                 @elseif($milestone->status == 1)
                                 <td>
-                                  <span class="label label-success">{{('Released')}}</span>
+                                  <span class="label label-warning">{{('Secondary Released')}}</span>
+                                </td>
+                                @elseif($milestone->status == 2)
+                                <td>
+                                  <span class="label label-success">{{('Final Released')}}</span>
                                 </td>
                                 @endif
 
                                 <td>
-                                  {{$milestone->name}}
+                                  <a href="{{route('milestone/edit', $milestone->id)}}">{{$milestone->name}}</a>
                                   <br>
                                   <small>Created on: {{$milestone->date}}</small>
                                 </td>
                                 <td>
                                 @if($milestone->status == 1)
-                                  <button type="button" class="btn btn-success btn_edit" disabled>Release</button>
-                                @else
-                                  <a href="{{route('milestone/release', $milestone->id)}}" class="btn btn-success btn_edit">Release</a>
-                                </td>
+                                  <a href="{{route('milestone/release', $milestone->id)}}" class="btn btn-success btn_edit">FinalRelease</a>
+                                  <p><small class="label label-warning">Release will be in Pakistan Office</small></p>
+                                @elseif($milestone->status == 2)
+                                <button type="button" class="btn btn-success btn_edit" disabled>Released</button>
+                                <p><small class="label label-success">Released in Pakistan Office.</small></p>
+                                @elseif($milestone->status == 0)
+                                  <a href="{{route('milestone/release', $milestone->id)}}" class="btn btn-success btn_edit">Secondary Release</a>
+                                  <p><small class="label label-info">Release will be in Australian Office</small></p>
                                 @endif
+                                </td>
                               </tr>
                             @endforeach
                             </tbody>

@@ -9,6 +9,145 @@ $(document).ready(function(){
         $($(this).attr('href')).addClass("active");
     });
 
+
+    $('.alert-confirm').on('click', function(){
+        var id = $(this).attr('data-id');
+        alert(id);
+        swal({
+                    title: "Are you sure?",
+                    text: "You want to update this record!",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonClass: "btn-danger",
+                    confirmButtonText: "Yes, update it!",
+                    closeOnConfirm: false
+                },
+                function(){
+                    $.ajax(
+                        {
+                            url: "{{route('update/businesstype')}}",
+                            type: "post",
+                            data: "id="+id,
+                            success: function(data){
+                                swal("Updated!", "The record has been updated.", "success");
+                                window.location = '/';
+                            },
+                            error: function(data){
+                                swal("Error", "Some Error Occured!", "error")
+                            }
+                        }
+                    )
+                });
+    });
+
+
+    $('.alert-success-cancel-bt').on('click',function(){
+            var id = $(this).attr('data-id');
+            swal({
+                    title: "Are you sure?",
+                    text: "Do you want to delete!",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonClass: "btn-danger",
+                    confirmButtonText: "Yes, delete it!",
+                    cancelButtonText: "No, cancel plx!",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                },
+                function(isConfirm) {
+                    if (isConfirm) {
+                        $.ajax(
+                        {
+                            url: "{{ route('delete/businesstype') }}",
+                            type: "post",
+                            data: "id="+id,
+                            success: function(data){
+                                swal("Deleted!", "The Business Type has been deleted.", "success");
+                                window.location = '/';
+                            },
+                            error: function(data){
+                                swal("Error", "Some Error Occured!", "error")
+                            }
+                        }
+                    )
+                    } else {
+                        swal("Cancelled", "The record is safe :)", "error");
+                    }
+                });
+    });
+
+    $('.alert-success-cancel-area').on('click',function(){
+            var id = $(this).attr('data-id');
+            swal({
+                    title: "Are you sure?",
+                    text: "Do you want to delete!",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonClass: "btn-danger",
+                    confirmButtonText: "Yes, delete it!",
+                    cancelButtonText: "No, cancel plx!",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                },
+                function(isConfirm) {
+                    if (isConfirm) {
+                        $.ajax(
+                        {
+                            url: "{{route('delete/area')}}",
+                            type: "post",
+                            data: "id="+id,
+                            success: function(data){
+                                swal("Deleted!", "The area has been deleted.", "success");
+                                window.location = '/';
+                            },
+                            error: function(data){
+                                swal("Error", "Some Error Occured!", "error")
+                            }
+                        }
+                    )
+                    } else {
+                        swal("Cancelled", "The record is safe :)", "error");
+                    }
+                });
+    });
+
+    $('.alert-success-cancel-status').on('click',function(){
+            var id = $(this).attr('data-id');
+            swal({
+                    title: "Are you sure?",
+                    text: "Do you want to delete!",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonClass: "btn-danger",
+                    confirmButtonText: "Yes, delete it!",
+                    cancelButtonText: "No, cancel plx!",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                },
+                function(isConfirm) {
+                    if (isConfirm) {
+                        $.ajax(
+                        {
+                            url: "{{route('delete/status')}}",
+                            type: "post",
+                            data: "id="+id,
+                            success: function(data){
+                                swal("Deleted!", "The record has been deleted.", "success");
+                                window.location = '/';
+                            },
+                            error: function(data){
+                                swal("Error", "Some Error Occured!", "error")
+                            }
+                        }
+                    )
+                    } else {
+                        swal("Cancelled", "The record is safe :)", "error");
+                    }
+                });
+    });
+
+
+
 });
 
 $(document).ready(function() {

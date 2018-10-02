@@ -236,6 +236,19 @@
                             </li>
                         </ul>
                     </li>
+
+                    <li class="nav-item">
+                        <a href="javascript:void(0)">
+                            <i class="ti-home"></i>
+                            <span data-i18n="nav.dash.main">Register Roles</span>
+                        </a>
+
+                        <ul class="tree-1">
+                            <li>
+                                <a href="{{ route('admin/registerRole') }}" data-i18n="nav.dash.default"> Register Agent </a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </ul>    
         </div>
