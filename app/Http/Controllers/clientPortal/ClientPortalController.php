@@ -26,6 +26,7 @@ class ClientPortalController extends Controller
      */
     public function index()
     {
+        //dd(route('delete/businesstype') );
         $clients = ClientPortal::where('delete_bit', 0)->get();
         $areas = Area::all();
         $businesstypes = BusinessType::all();
@@ -114,9 +115,30 @@ class ClientPortalController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        echo "I am Edit of client";
+        //$id = $_GET['id'];
+        //return $id;
+
+        DB::beginTransaction();
+        try
+        {  
+            $id = $_GET['id'];
+            $existClient = ClientPortal::find($id);        
+         
+            if(empty($existClient))
+            {
+                return "Client Does not exist";
+            }
+
+            
+            return $existClient;
+                
+        } 
+        catch(Exception $e){
+            DB::rollback($e);
+            return redirect()->back()->with('message', 'Error occured while deleting!');
+        }
     }
 
     /**

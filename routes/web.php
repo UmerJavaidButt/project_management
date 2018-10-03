@@ -11,6 +11,7 @@
 |
 */
 
+Route::get('/', 'HomeController@index');
 Auth::routes();
 
 Route::get('/logout', function(){
@@ -105,6 +106,7 @@ Route::get('milestone/release/{id}' , 'MilestoneController@releaseMilestone')->n
 
 /* ROUTES ClientPortal */
 Route::get('client_portal' , 'ClientPortalController@index')->name('client_portal');
+Route::get('client_portal/edit' , 'ClientPortalController@edit')->name('edit/client_portal');
 Route::post('client_portal/saveClient' , 'ClientPortalController@store')->name('clientportal');
 
 /* ROUTES BUSINESS TYPE */
@@ -119,14 +121,14 @@ Route::get('client_portal/admin/preferences/areas' , 'AreaController@index')->na
 Route::get('client_portal/admin/preferences/add_area' , 'AreaController@create')->name('area/create');
 Route::get('client_portal/admin/preferences/edit_area/{id}' , 'AreaController@edit')->name('area/edit');
 Route::get('client_portal/admin/preferences/change_status/{id}' , 'AreaController@changeStatus')->name('change_area_status');
-Route::get('client_portal/admin/preferences/delete_area/{id}' , 'AreaController@delete')->name('delete/area');
+Route::get('client_portal/admin/preferences/delete_area' , 'AreaController@delete')->name('delete/area');
 
 /* ROUTES STATUS */
 Route::get('client_portal/admin/preferences/status' , 'StatusController@index')->name('status/view');
 Route::get('client_portal/admin/preferences/add_status' , 'StatusController@create')->name('status/create');
 Route::get('client_portal/admin/preferences/edit_status/{id}' , 'StatusController@edit')->name('status/edit');
 Route::get('client_portal/admin/preferences/change_statuses_status/{id}' , 'StatusController@changeStatus')->name('change_status_status');
-Route::get('client_portal/admin/preferences/delete_status/{id}' , 'StatusController@delete')->name('delete/status');
+Route::get('client_portal/admin/preferences/delete_status' , 'StatusController@delete')->name('delete/status');
 
 /* ROUTE Logout */
 Route::get('client/details/{id}', 'AdminController@client_details')->name('client/details');

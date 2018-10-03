@@ -90,11 +90,11 @@ class AreaController extends Controller
         }
     }
 
-    public function delete($id){
+    public function delete(){
         DB::beginTransaction();
         try
         {
-            //$data = $request->all();
+            $id = $_GET['id'];
             $existArea = Area::where('id', $id)->first();
             if($existArea->is_deleted == 0){
                 $existArea->is_deleted = 1;
@@ -103,7 +103,7 @@ class AreaController extends Controller
 
             DB::commit();
             Session::flash('update', 'Area deleted Successfully');
-            return redirect()->route('area/view')->with('update', 'Area Successfully deleted');
+            return 1;
         } catch (Exception $e) {
             DB::rollback();
             return back()->with('error_messages', 'Error in deleting Area');

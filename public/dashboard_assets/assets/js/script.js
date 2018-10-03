@@ -9,6 +9,29 @@ $(document).ready(function(){
         $($(this).attr('href')).addClass("active");
     });
 
+    $('.edit_button').on('click', function(){
+        var id = $(this).attr('data-id');
+        //alert(id);
+        $.ajax(
+        {
+            url:'client_portal/edit',
+            type: 'GET',
+            dataType:'json',
+            data:{id: id},
+            success: function(response){
+                //alert(response['title']);
+                $('#edit_name').val(response['title']);
+                $('#edit_email').val(response['email']);
+                $('#edit_phone').val(response['phone']);
+                $('#edit_website').val(response['website']);
+                $('.edit_desc').html(response['description']);
+                $('#edit-modal').modal();
+
+            }
+        }
+      );
+    });
+
 
     $('.alert-confirm').on('click', function(){
         var id = $(this).attr('data-id');
@@ -25,7 +48,7 @@ $(document).ready(function(){
                 function(){
                     $.ajax(
                         {
-                            url: "{{route('update/businesstype')}}",
+                            url: "client_portal/admin/preferences/delete_businesstype",
                             type: "post",
                             data: "id="+id,
                             success: function(data){
@@ -58,12 +81,14 @@ $(document).ready(function(){
                     if (isConfirm) {
                         $.ajax(
                         {
-                            url: "{{ route('delete/businesstype') }}",
-                            type: "post",
-                            data: "id="+id,
+                            url: "http://localhost:8000/client_portal/admin/preferences/delete_businesstype",
+                            type: "get",
+                            dataType: 'json',
+                            data: {id: id},
+                            //headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
                             success: function(data){
                                 swal("Deleted!", "The Business Type has been deleted.", "success");
-                                window.location = '/';
+                                window.location = 'http://localhost:8000/client_portal/admin/preferences/businesstype';
                             },
                             error: function(data){
                                 swal("Error", "Some Error Occured!", "error")
@@ -91,14 +116,17 @@ $(document).ready(function(){
                 },
                 function(isConfirm) {
                     if (isConfirm) {
+
                         $.ajax(
                         {
-                            url: "{{route('delete/area')}}",
-                            type: "post",
-                            data: "id="+id,
+                            url: "http://localhost:8000/client_portal/admin/preferences/delete_area",
+                            type: "get",
+                            dataType: 'json',
+                            data: {id: id},
+
                             success: function(data){
                                 swal("Deleted!", "The area has been deleted.", "success");
-                                window.location = '/';
+                                window.location = 'http://localhost:8000/client_portal/admin/preferences/areas';
                             },
                             error: function(data){
                                 swal("Error", "Some Error Occured!", "error")
@@ -128,12 +156,13 @@ $(document).ready(function(){
                     if (isConfirm) {
                         $.ajax(
                         {
-                            url: "{{route('delete/status')}}",
-                            type: "post",
-                            data: "id="+id,
+                            url: "http://localhost:8000/client_portal/admin/preferences/delete_status",
+                            type: "get",
+                            dataType: 'json',
+                            data: {id:id},
                             success: function(data){
                                 swal("Deleted!", "The record has been deleted.", "success");
-                                window.location = '/';
+                                window.location = 'http://localhost:8000/client_portal/admin/preferences/status';
                             },
                             error: function(data){
                                 swal("Error", "Some Error Occured!", "error")
@@ -682,3 +711,7 @@ function toggleFullScreen() {
 //     event.preventDefault();
 //     $(this).ekkoLightbox();
 // });
+
+
+
+

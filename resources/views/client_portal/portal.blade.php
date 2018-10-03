@@ -120,9 +120,9 @@
                                 <div class="col-lg-12 text-center">
                                   <strong>Description</strong>
                                   <p>{{$client->description}}</p>
-                                  <a type="button" href="{{ action('ClientPortalController@edit', $client->id) }}" class="btn btn-info btn_edit btn-block btn-sm">
+                                  <button type="button" data-id="{{$client->id}}" class="btn btn-info btn_edit btn-block btn-sm edit_button">
                                     <i class="fa fa-edit"></i>Edit Client
-                                  </a>
+                                  </button>
                                 </div>
                               </div>
                               <div class="client-detail">
@@ -228,9 +228,9 @@
                                 <div class="col-lg-12 text-center">
                                   <strong>Description</strong>
                                   <p>{{$client->description}}</p>
-                                  <a href="{{ action('ClientPortalController@edit', $client->id) }}" class="btn btn-info btn_edit btn-block btn-sm">
+                                  <button type="button" data-id="{{$client->id}}" class="btn btn-info btn_edit btn-block btn-sm edit_button">
                                     <i class="fa fa-edit"></i>Edit Client
-                                  </a>
+                                  </button>
                                 </div>
                               </div>
                               <div class="client-detail">
@@ -418,24 +418,24 @@
                               @csrf
                                 <div class="input-group">
                                     <span class="input-group-addon" id="basic-addon1"><i class="icofont icofont-user"></i></span>
-                                    <input type="text" name="title" class="form-control" placeholder="Client Name" value="{{ old('title') }}" required autofocus>
+                                    <input  id="edit_name" type="text" name="title" class="form-control" placeholder="Client Name" value="" required autofocus>
                                 </div>
                                 <div class="input-group">
                                     <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
-                                    <input type="email" name="email" class="form-control" placeholder="Client Email" value="{{ old('email') }}" required>
+                                    <input id="edit_email" type="email" name="email" class="form-control" placeholder="Client Email" value="" required>
                                 </div>
                                 <div class="input-group">
                                     <span class="input-group-addon" id="basic-addon1"><i class="icofont icofont-user"></i></span>
-                                    <input type="text" name="phone" class="form-control" placeholder="Phone Number" value="{{ old('phone') }}" required>
+                                    <input id="edit_phone" type="text" name="phone" class="form-control" placeholder="Phone Number" value="" required>
                                 </div>
                                 <div class="input-group">
                                     <span class="input-group-addon" id="basic-addon4"><i class="icofont icofont-user"></i></span>
-                                    <input type="url" name = "website" class="form-control" placeholder="Website">
+                                    <input id = 'edit_website' type="url" name = "website" class="form-control" placeholder="Website">
                                 </div>
                                 <div class="input-group">
                                     <span class="input-group-addon" id="basic-addon5"><i class="icofont icofont-user"></i></span>
                                     <select class="form-control" name="business_type">
-                                    <option value="">---Select Business Type---</option>
+                                    <option id="edit_businessType" value="">---Select Business Type---</option>
                                     @foreach($businesstypes as $bt)
                                     <option value="{{$bt->id}}">{{$bt->name}}</option>
                                     @endforeach
@@ -444,7 +444,7 @@
                                 <div class="input-group">
                                     <span class="input-group-addon" id="basic-addon6"><i class="icofont icofont-user"></i></span>
                                     <select class="form-control" name="area">
-                                    <option value="">---Select Area---</option>
+                                    <option id="edit_area" value="">---Select Area---</option>
                                     @foreach($areas as $area)
                                     <option value="{{$area->id}}">{{$area->name}}</option>
                                     @endforeach
@@ -454,7 +454,7 @@
                                 <div class="input-group">
                                     <span class="input-group-addon" id="basic-addon6"><i class="icofont icofont-user"></i></span>
                                     <select class="form-control" name="status">
-                                    <option value="">---Select Current Status---</option>
+                                    <option id="edit_status" value="">---Select Current Status---</option>
                                     @foreach($status as $st)
                                     <option value="{{$st->id}}">{{$st->name}}</option>
                                     @endforeach
@@ -463,12 +463,12 @@
 
                                 <div class="input-group">
                                     <span class="input-group-addon" id="basic-addon7"><i class="icofont icofont-user"></i></span>
-                                    <textarea id="dropper-default" name="description" class="form-control" type="textarea" placeholder="Description..."></textarea>
+                                    <textarea value="" class="edit_desc" id="dropper-default" name="description" class="form-control edit_description" type="textarea" placeholder="Description..."></textarea>
                                 </div>
                               </form>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" id="modal_submit" class="btn btn-primary btn_submit">Add Client</button>
+                                <button type="button" id="modal_submit" class="btn btn-primary btn_submit">Edit Client</button>
                                 <button type="button" class="btn btn_danger btn-danger" data-dismiss="modal">Cancel</button>
                             </div>
                         </div>
@@ -486,67 +486,7 @@
 
 
 
-                <div class="md-modal md-effect-19" id="modal-20">
-                    <div class="md-content">
-                        <h3 class="f-26">Add Client</h3>
-                        <div>
-                        <form class="form" action="" method="" id="client_form">
-                        @csrf
-                            <div class="input-group">
-                                <span class="input-group-addon" id="basic-addon1"><i class="icofont icofont-user"></i></span>
-                                <input type="text" name="name" class="form-control" placeholder="Client Name">
-                            </div>
-                            <div class="input-group">
-                                <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
-                                <input type="text" name="email" class="form-control" placeholder="Client Email">
-                            </div>
-                            <div class="input-group">
-                                <span class="input-group-addon" id="basic-addon1"><i class="icofont icofont-user"></i></span>
-                                <input type="text" name="Phone" class="form-control" placeholder="Phone Number">
-                            </div>
-                            <div class="input-group">
-                                <span class="input-group-addon" id="basic-addon4"><i class="icofont icofont-user"></i></span>
-                                <input type="text" name = "website" class="form-control" placeholder="Website">
-                            </div>
-                            <div class="input-group">
-                                <span class="input-group-addon" id="basic-addon5"><i class="icofont icofont-user"></i></span>
-                                <select type="text" class="form-control" name="b_type">
-                                <option value="">---Select Business Type---</option>
-                                @foreach($businesstypes as $bt)
-                                <option value="{{$bt->id}}">{{$bt->name}}</option>
-                                @endforeach
-                                </select>
-                            </div>
-                            <div class="input-group">
-                                <span class="input-group-addon" id="basic-addon6"><i class="icofont icofont-user"></i></span>
-                                <select type="number" class="form-control" name="area">
-                                <option value="">---Select Area---</option>
-                                @foreach($areas as $area)
-                                <option value="{{$area->id}}">{{$area->name}}</option>
-                                @endforeach
-                                </select>
-                            </div>
-                            <div class="input-group">
-                                <span class="input-group-addon" id="basic-addon7"><i class="icofont icofont-user"></i></span>
-                                <textarea id="dropper-default" name="description" class="form-control" type="text" placeholder="Description..."></textarea>
-                            </div>
-                            <div class="input-group">
-                                <span class="input-group-addon" id="basic-addon6"><i class="icofont icofont-user"></i></span>
-                                <select type="number" class="form-control" name="status">
-                                <option value="">---Select Current Status---</option>
-                                @foreach($status as $st)
-                                <option value="{{$st->id}}">{{$st->name}}</option>
-                                @endforeach
-                                </select>
-                            </div>
-                            <div class="text-center">
-                                <button type="button" id="modal_submit" class="btn btn_submit btn-primary waves-effect m-r-20 f-w-600 d-inline-block">Save</button>
-                                <button type="button" class="btn btn_danger btn-danger waves-effect m-r-20 f-w-600 md-close d-inline-block">Close</button>
-                            </div>
-                          </form> 
-                        </div>
-                    </div>
-                </div>
+                
                 <div class="md-overlay"></div>
 
             </div>

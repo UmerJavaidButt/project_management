@@ -166,7 +166,7 @@
             <div class="page-header">
                 <div class="page-header-title">
                     <ul class="nav nav-tabs">
-                    @if(!(\Auth::user()->agent) )
+                    @if((\Auth::user()->type == 'admin') )
                         <li>
                             <a href="{{route('admin')}}" class="nav-link">
                                 <h4>Project Dashboard</h4>
@@ -195,6 +195,7 @@
                     </ul>
                 </div>
             </div>
+            
         @yield('content')
     </div>
 

@@ -71,11 +71,11 @@ class StatusController extends Controller
         }
     }
 
-    public function delete($id){
+    public function delete(){
         DB::beginTransaction();
         try
         {
-            //$data = $request->all();
+            $id = $_GET['id'];
             $existStatus = Status::where('id', $id)->first();
             if($existStatus->is_deleted == 0){
                 $existStatus->is_deleted = 1;
@@ -84,7 +84,7 @@ class StatusController extends Controller
 
             DB::commit();
             Session::flash('update', 'Status deleted Successfully');
-            return redirect()->route('status/view')->with('update', 'Status Successfully Deleted');
+            return 1;
         } catch (Exception $e) {
             DB::rollback();
             return back()->with('error_messages', 'Error in deleting Status');
