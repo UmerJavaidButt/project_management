@@ -32,6 +32,8 @@ class AreaController extends Controller
 
             Area::create([
             	'name' => $data['name'],
+                'status' => 1,
+                'is_deleted' => 0,
             ]);
 
             DB::commit();

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBusinessTypeTable extends Migration
+class CreateDeleteClientRequest extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateBusinessTypeTable extends Migration
      */
     public function up()
     {
-        Schema::create('business_types', function (Blueprint $table) {
+        Schema::create('delete_client_requests', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->integer('status');
-            $table->integer('is_deleted');
+            $table->text('reason');
+            $table->boolean('status');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateBusinessTypeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('business_types');
+        Schema::dropIfExists('delete_client_requests');
     }
 }

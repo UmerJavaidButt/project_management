@@ -69,7 +69,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="business" class="col-md-4 col-form-label text-md-right">{{ __('Business (Optional)') }}</label>
+                            <label for="business" class="col-md-4 col-form-label text-md-right">{{ __('Business Type') }}</label>
 
                             <div class="col-md-6">
                                 <input id="business" placeholder="Client's Business" type="text" class="form-control" name="business" value="{{ old('business') }}">
@@ -77,18 +77,18 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('Address (Optional)') }}</label>
+                            <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('Address') }}</label>
 
                             <div class="col-md-6">
-                                <input id="address" placeholder="Address (e.g 33 A, Columbia street...)" type="text" class="form-control" name="address" value="{{ old('address') }}">
+                                <input id="address" placeholder="Address (e.g 33 A, Columbia street...)" type="text" class="form-control" name="address" value="{{ old('address') }}" required>
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="country" class="col-md-4 col-form-label text-md-right">{{ __('Country') }}</label>
+                            <label for="country" class="col-md-4 col-form-label text-md-right">{{ __('Area') }}</label>
 
                             <div class="col-md-6">
-                                <input id="country" placeholder="Country e.g USA" type="text" class="form-control" name="country" value="{{ old('country') }}" required>
+                                <input id="country" placeholder="Country e.g Perth or Victoria Park" type="text" class="form-control" name="country" value="{{ old('country') }}" required>
                             </div>
                         </div>
 

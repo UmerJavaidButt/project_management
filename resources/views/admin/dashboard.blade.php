@@ -112,7 +112,7 @@
                         </a>
                     </li>
 
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a href="javascript:void(0)">
                             <i class="ti-home"></i>
                             <span data-i18n="nav.dash.main">Manage Cleints</span>
@@ -125,7 +125,7 @@
                             <li><a href="{{ route ('client/view') }}" data-i18n="nav.dash.ecommerce"> View All Clients </a></li>
                             </li>
                         </ul>
-                    </li>
+                    </li> -->
 
                     
                     <li class="nav-item">

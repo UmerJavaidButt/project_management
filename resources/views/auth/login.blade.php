@@ -8,7 +8,7 @@
                 <div class="card-body">
                     <div class="auth-box">
                         <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
-                            @csrf
+                            {!! csrf_field() !!}
 
                             <div class="text-center">
                                 <img src="{{asset('dashboard_assets/assets/images/welcome/header-logo-default.png')}}">

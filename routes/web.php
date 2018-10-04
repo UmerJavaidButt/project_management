@@ -106,29 +106,39 @@ Route::get('milestone/release/{id}' , 'MilestoneController@releaseMilestone')->n
 
 /* ROUTES ClientPortal */
 Route::get('client_portal' , 'ClientPortalController@index')->name('client_portal');
-Route::get('client_portal/edit' , 'ClientPortalController@edit')->name('edit/client_portal');
+Route::get('/client_portal/edit' , 'ClientPortalController@edit')->name('edit/client_portal');
+Route::post('/client_portal/update' , 'ClientPortalController@update')->name('clientportalUpdate');
 Route::post('client_portal/saveClient' , 'ClientPortalController@store')->name('clientportal');
+Route::get('/client_portal/getClientDetails' , 'ClientPortalController@getClientDetails');
+Route::get('/client_portal/admin/preferences/deleteClient' , 'ClientPortalController@destroy');
 
 /* ROUTES BUSINESS TYPE */
 Route::get('client_portal/admin/preferences/businesstype' , 'BusinessTypeController@index')->name('businesstype/view');
 Route::get('client_portal/admin/preferences/add_businesstype' , 'BusinessTypeController@create')->name('add_business_type');
 Route::get('client_portal/admin/preferences/edit_businesstype/{id}' , 'BusinessTypeController@edit')->name('edit_business_type');
 Route::get('client_portal/admin/preferences/change_bt_status/{id}' , 'BusinessTypeController@changeStatus')->name('change_bt_status');
-Route::get('client_portal/admin/preferences/delete_businesstype' , 'BusinessTypeController@delete')->name('delete/businesstype');
+Route::get('/client_portal/admin/preferences/delete_businesstype' , 'BusinessTypeController@delete');
 
 /* ROUTES AREA TYPE */
-Route::get('client_portal/admin/preferences/areas' , 'AreaController@index')->name('area/view');
+Route::get('/client_portal/admin/preferences/areas' , 'AreaController@index')->name('area/view');
 Route::get('client_portal/admin/preferences/add_area' , 'AreaController@create')->name('area/create');
 Route::get('client_portal/admin/preferences/edit_area/{id}' , 'AreaController@edit')->name('area/edit');
 Route::get('client_portal/admin/preferences/change_status/{id}' , 'AreaController@changeStatus')->name('change_area_status');
-Route::get('client_portal/admin/preferences/delete_area' , 'AreaController@delete')->name('delete/area');
+Route::get('/client_portal/admin/preferences/delete_area' , 'AreaController@delete');
 
 /* ROUTES STATUS */
-Route::get('client_portal/admin/preferences/status' , 'StatusController@index')->name('status/view');
+Route::get('/client_portal/admin/preferences/status' , 'StatusController@index')->name('status/view');
 Route::get('client_portal/admin/preferences/add_status' , 'StatusController@create')->name('status/create');
 Route::get('client_portal/admin/preferences/edit_status/{id}' , 'StatusController@edit')->name('status/edit');
 Route::get('client_portal/admin/preferences/change_statuses_status/{id}' , 'StatusController@changeStatus')->name('change_status_status');
-Route::get('client_portal/admin/preferences/delete_status' , 'StatusController@delete')->name('delete/status');
+Route::get('/client_portal/admin/preferences/delete_status' , 'StatusController@delete');
+
+/* ROUTES DELETE REQUESTS */
+Route::post('/client_portal/preferences/client/delete_request' , 'DeleteRequestController@deleteRequest');
+Route::get('client_portal/admin/preferences/delete_requests/client' , 'DeleteRequestController@deleteClientRequest')->name('client_delete_requests');
+Route::get('/client_portal/admin/preferences/approve_request/client' , 'DeleteRequestController@approveRequest');
+Route::get('/client_portal/admin/preferences/decline_request/client' , 'DeleteRequestController@declineRequest');
+
 
 /* ROUTE Logout */
 Route::get('client/details/{id}', 'AdminController@client_details')->name('client/details');

@@ -28,7 +28,7 @@
         <div class="card">
             <div class="card-body">
                 <form method="POST" action="{{ url('projectuser') }}" aria-label="{{ __('Register Project') }}">
-                @csrf
+                {!! csrf_field() !!}
                 <div class="form-group row">
                     <label for="project" class="col-md-4 col-form-label text-md-right">{{ __('Project') }}</label>
                     

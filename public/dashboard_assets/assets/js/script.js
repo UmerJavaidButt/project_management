@@ -9,22 +9,28 @@ $(document).ready(function(){
         $($(this).attr('href')).addClass("active");
     });
 
+    /* EDIT MODAL POPUP  */
+
     $('.edit_button').on('click', function(){
         var id = $(this).attr('data-id');
         //alert(id);
         $.ajax(
         {
-            url:'client_portal/edit',
+            url:'/client_portal/edit',
             type: 'GET',
             dataType:'json',
             data:{id: id},
             success: function(response){
                 //alert(response['title']);
+                $('#id').val(response['id']);
                 $('#edit_name').val(response['title']);
                 $('#edit_email').val(response['email']);
                 $('#edit_phone').val(response['phone']);
                 $('#edit_website').val(response['website']);
-                $('.edit_desc').html(response['description']);
+                $('#edit_businessType').val(response['business_type']);
+                $('#edit_area').val(response['area_id']);
+                $('#edit_status').val(response['status']);
+                $('.edit_description').html(response['description']);
                 $('#edit-modal').modal();
 
             }
@@ -32,37 +38,66 @@ $(document).ready(function(){
       );
     });
 
+    /* #Edit Client Modal Form Submission  */ 
 
-    $('.alert-confirm').on('click', function(){
-        var id = $(this).attr('data-id');
-        alert(id);
-        swal({
-                    title: "Are you sure?",
-                    text: "You want to update this record!",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonClass: "btn-danger",
-                    confirmButtonText: "Yes, update it!",
-                    closeOnConfirm: false
-                },
-                function(){
-                    $.ajax(
-                        {
-                            url: "client_portal/admin/preferences/delete_businesstype",
-                            type: "post",
-                            data: "id="+id,
-                            success: function(data){
-                                swal("Updated!", "The record has been updated.", "success");
-                                window.location = '/';
-                            },
-                            error: function(data){
-                                swal("Error", "Some Error Occured!", "error")
-                            }
-                        }
-                    )
-                });
+    $('#modal_submit_edit').click(function(e){
+      e.preventDefault();
+      var btn = $(this);
+      $(btn).button('loading');
+      var value = $("#edit_client_form").serialize();
+      //console.log(value);
+      $.ajax({
+        url:"/client_portal/update",
+        type:"post",
+        data:value,
+        dataType:"json",
+        success: function( response ) {
+            $( "#pnotify-success" ).trigger( "click" );
+            $('#client_form')[0].reset();
+            $( "#edit-modal" ).modal( "hide" );
+            window.location = '/';
+       },
+       error: function(xhr, status, error) {
+          $( "#pnotify-danger" ).trigger( "click" );
+       },
+      });
     });
 
+
+    /* SWEET ALERT FOR CONFIRMATION (CANCEL OR YES)  */
+
+    // $('.alert-confirm').on('click', function(){
+    //     var id = $(this).attr('data-id');
+    //     alert(id);
+    //     swal({
+    //                 title: "Are you sure?",
+    //                 text: "You want to update this record!",
+    //                 type: "warning",
+    //                 showCancelButton: true,
+    //                 confirmButtonClass: "btn-danger",
+    //                 confirmButtonText: "Yes, update it!",
+    //                 closeOnConfirm: false
+    //             },
+    //             function(){
+
+    //                 $.ajax(
+    //                     {
+    //                         url: "client_portal/admin/preferences/delete_businesstype",
+    //                         type: "get",
+    //                         data: {id:id},
+    //                         success: function(data){
+    //                             swal("Updated!", "The record has been updated.", "success");
+    //                             window.location = '/';
+    //                         },
+    //                         error: function(data){
+    //                             swal("Error", "Some Error Occured!", "error")
+    //                         }
+    //                     }
+    //                 )
+    //             });
+    });
+    
+    /* SWEET ALERT FOR CONFIRMATION (CANCEL OR YES)  */
 
     $('.alert-success-cancel-bt').on('click',function(){
             var id = $(this).attr('data-id');
@@ -81,14 +116,14 @@ $(document).ready(function(){
                     if (isConfirm) {
                         $.ajax(
                         {
-                            url: "http://localhost:8000/client_portal/admin/preferences/delete_businesstype",
+                            url: "/client_portal/admin/preferences/delete_businesstype",
                             type: "get",
                             dataType: 'json',
                             data: {id: id},
                             //headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
                             success: function(data){
                                 swal("Deleted!", "The Business Type has been deleted.", "success");
-                                window.location = 'http://localhost:8000/client_portal/admin/preferences/businesstype';
+                                window.location = '/client_portal/admin/preferences/businesstype';
                             },
                             error: function(data){
                                 swal("Error", "Some Error Occured!", "error")
@@ -100,6 +135,8 @@ $(document).ready(function(){
                     }
                 });
     });
+
+    /* SWEET ALERT FOR CONFIRMATION (CANCEL OR YES)  */
 
     $('.alert-success-cancel-area').on('click',function(){
             var id = $(this).attr('data-id');
@@ -119,14 +156,14 @@ $(document).ready(function(){
 
                         $.ajax(
                         {
-                            url: "http://localhost:8000/client_portal/admin/preferences/delete_area",
+                            url: "/client_portal/admin/preferences/delete_area",
                             type: "get",
                             dataType: 'json',
                             data: {id: id},
 
                             success: function(data){
                                 swal("Deleted!", "The area has been deleted.", "success");
-                                window.location = 'http://localhost:8000/client_portal/admin/preferences/areas';
+                                window.location = '/client_portal/admin/preferences/areas';
                             },
                             error: function(data){
                                 swal("Error", "Some Error Occured!", "error")
@@ -138,6 +175,8 @@ $(document).ready(function(){
                     }
                 });
     });
+
+    /* SWEET ALERT FOR CONFIRMATION (CANCEL OR YES)  */
 
     $('.alert-success-cancel-status').on('click',function(){
             var id = $(this).attr('data-id');
@@ -156,13 +195,13 @@ $(document).ready(function(){
                     if (isConfirm) {
                         $.ajax(
                         {
-                            url: "http://localhost:8000/client_portal/admin/preferences/delete_status",
+                            url: "/client_portal/admin/preferences/delete_status",
                             type: "get",
                             dataType: 'json',
                             data: {id:id},
                             success: function(data){
                                 swal("Deleted!", "The record has been deleted.", "success");
-                                window.location = 'http://localhost:8000/client_portal/admin/preferences/status';
+                                window.location = '/client_portal/admin/preferences/status';
                             },
                             error: function(data){
                                 swal("Error", "Some Error Occured!", "error")
@@ -176,8 +215,179 @@ $(document).ready(function(){
     });
 
 
+    /* SWEET ALERT FOR CLIENT DELETION REQUEST WITH REASON  FROM AGENT  */
 
-});
+    $('.alert-prompt').on('click', function(){
+        var id = $(this).attr('data-id');
+        //alert(id);
+
+        swal({
+            title: "WHY!",
+            text: "REASON:",
+            type: "input",
+            showCancelButton: true,
+            closeOnConfirm: false,
+            inputPlaceholder: "Please explain the reason"
+        }, function (inputValue) {
+            if (inputValue === false) return false;
+            if (inputValue === "") {
+                swal.showInputError("You need to give the reason!");
+                return false
+            } else{
+                $.ajaxSetup({
+                      headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                      }
+                    });
+                $.ajax(
+                        {
+                            url: "/client_portal/preferences/client/delete_request",
+                            type: "post",
+                            dataType: 'json',
+                            data: {id:id, reason:inputValue},
+                            success: function(data){
+                                swal("Done!", "Your request has been forwaded to Admin for approval.", "success");
+                                window.location = '/';
+                            },
+                            error: function(data){
+                                swal("Error", "Some Error Occured!", "error")
+                            }
+                        }
+                    )
+            }
+        });
+    });
+
+    /* Confirmation for Approving Deletion of Client */
+    $('.alert-confirm-deletion').on('click', function(){
+        var id = $(this).attr('data-id');
+        //alert(id);
+        swal({
+                    title: "Are you sure?",
+                    text: "You want to approve delete request!",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonClass: "btn-danger",
+                    confirmButtonText: "Yes, approve it!",
+                    closeOnConfirm: false
+                },
+                function(){
+
+                    $.ajax(
+                        {
+                            url: "/client_portal/admin/preferences/approve_request/client",
+                            type: "get",
+                            data: {id:id},
+                            success: function(response){
+                                swal("Deleted!", "The Client Delete Request has been approved.", "success");
+                                window.location.reload(true);
+                            },
+                            error: function(response){
+                                swal("Error", "Some Error Occured!", "error")
+                            }
+                        }
+                    )
+                });
+    });
+
+    /* Decline for Approving Deletion of Client */
+    $('.alert-decline-deletion').on('click', function(){
+        var id = $(this).attr('data-id');
+        //alert(id);
+        swal({
+                    title: "Are you sure?",
+                    text: "You want to decline delete request!",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonClass: "btn-danger",
+                    confirmButtonText: "Yes, decline it!",
+                    closeOnConfirm: false
+                },
+                function(){
+
+                    $.ajax(
+                        {
+                            url: "/client_portal/admin/preferences/decline_request/client",
+                            type: "get",
+                            data: {id:id},
+                            success: function(response){
+                                swal("Declined!", "The Client Delete Request has been Deeclined.", "success");
+                                window.location.reload(true);
+                            },
+                            error: function(response){
+                                swal("Error", "Some Error Occured!", "error")
+                            }
+                        }
+                    )
+                });
+    });
+
+
+    /*  CONFIRMATION FOR DELETION FROM ADMIN */
+
+    $('.alert-confirm-admin').on('click', function(){
+        var id = $(this).attr('data-id');
+        //alert(id);
+        swal({
+                    title: "Are you sure?",
+                    text: "You want to delete this client!",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonClass: "btn-danger",
+                    confirmButtonText: "Yes, delete it!",
+                    closeOnConfirm: false
+                },
+                function(){
+
+                    $.ajax(
+                        {
+                            url: "/client_portal/admin/preferences/deleteClient",
+                            type: "get",
+                            data: {id:id},
+                            success: function(data){
+                                swal("Deleted!", "The record has been Deleted.", "success");
+                                window.location.reload(true);
+                            },
+                            error: function(data){
+                                swal("Error", "Some Error Occured!", "error");
+                            }
+                        });
+                    
+                });
+    });
+    
+
+    
+    /* Client Details through AJAX and Assigning values to MODAL POPUP  */
+
+    $('.client_details_button').on('click', function(){
+        var id = $(this).attr('data-id');
+        //alert(id);
+        $.ajax(
+        {
+            url:'/client_portal/getClientDetails',
+            type: 'GET',
+            dataType:'json',
+            data:{id: id},
+            success: function(response){
+                //alert(response);
+                $('#client_name').text(response['title']);
+                $('#client_email').text(response['email']);
+                $('#client_phone').text(response['phone']);
+                $('#client_website').text(response['website']);
+                $('#client_businessType').text(response['businesstype']['name']);
+                $('#client_area').text(response['area']['name']);
+                $('#client_status').text(response['status']['name']);
+                $('.client_description').html(response['description']);
+                $('#details-modal').modal();
+
+            }
+        }
+      );
+    });
+
+
+
 
 $(document).ready(function() {
     var select = document.getElementById('task_project');

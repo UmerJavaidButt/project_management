@@ -24,7 +24,7 @@ class Project extends Model
     ];
 
     public function client(){
-    	return $this->belongsTo('App\Clients', 'foriegn_key');
+    	return $this->belongsTo('App\ClientPortal', 'foriegn_key');
     }
 
     public function recruiter(){

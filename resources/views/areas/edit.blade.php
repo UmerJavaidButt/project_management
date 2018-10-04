@@ -16,7 +16,7 @@
 				        	<div class="row">
 				        		<div class="col-md-12">
 						            <form method="post" action="{{action('AreaController@update', $id)}}">
-						            	@csrf
+						            	{!! csrf_field() !!}
 						            	<input name="_method" type="hidden" value="PATCH">
 						            	<div class="form-group row">
 				                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Area') }}</label>

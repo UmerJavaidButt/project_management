@@ -8,7 +8,7 @@
                 <div class="card-body">
                     <div class="auth-box">    
                         <form method="POST" action="{{ route('registerAgent') }}" aria-label="{{ __('Register Agent') }}">
-                            @csrf
+                           {!! csrf_field() !!}
 
                             <div class="row">
                                 <div class="col-md-12">

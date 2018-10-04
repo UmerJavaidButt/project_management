@@ -105,7 +105,9 @@
 
                     <div class="col-sm-8 text-sm-left">
                       <dd class="mb-1">
-                        <a href="{{route('client/details', $projects->clientID)}}" class="text-navy">{{$projects->client}}</a>
+                        <a href="javascript:void(0)"  data-id="{{$projects->clientID}}" class="client-link client_details_button">
+                          {{$projects->client}}
+                        </a>
                       </dd>
                     </div>
                   </div>
@@ -393,6 +395,63 @@
         </div>
       </div>
       </div>
+
+      <!-- Client Details Model -->
+
+  <div class="modal fade" id="details-modal" tabindex="-1">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title">Requested Client Details</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body p-b-0">
+
+                  <div class="input-group">
+                      <span class="input-group-addon" id="basic-addon1"><i class="icofont icofont-user"></i></span>
+                      <span  id="client_name" class="form-control"></span>
+                  </div>
+                  <div class="input-group">
+                      <span class="input-group-addon" id="basic-addon2"><i class="icofont icofont-user"></i></span>
+                      <span  id="client_email" class="form-control"></span>
+                  </div>
+                  <div class="input-group">
+                      <span class="input-group-addon" id="basic-addon1"><i class="icofont icofont-user"></i></span>
+                      <span  id="client_phone" class="form-control"></span>
+                  </div>
+                  <div class="input-group">
+                      <span class="input-group-addon" id="basic-addon4"><i class="icofont icofont-user"></i></span>
+                      <span  id="client_website" class="form-control"></span>
+                  </div>
+                  <div class="input-group">
+                      <span class="input-group-addon" id="basic-addon5"><i class="icofont icofont-user"></i></span>
+                      <span  id="client_businessType" class="form-control"></span>
+                  </div>
+                  <div class="input-group">
+                      <span class="input-group-addon" id="basic-addon6"><i class="icofont icofont-user"></i></span>
+                      <span  id="client_area" class="form-control"></span>
+                  </div>
+
+                  <div class="input-group">
+                      <span class="input-group-addon" id="basic-addon6"><i class="icofont icofont-user"></i></span>
+                      <span  id="client_status" class="form-control"></span>
+                  </div>
+
+                  <div class="input-group">
+                      <span class="input-group-addon" id="basic-addon7"><i class="icofont icofont-user"></i></span>
+                      <textarea value="" id="dropper-default" name="description" class="form-control client_description" type="textarea" disabled="disabled"></textarea>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn_danger btn-success" data-dismiss="modal">Done</button>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- Client Details modal end -->
       
 
 

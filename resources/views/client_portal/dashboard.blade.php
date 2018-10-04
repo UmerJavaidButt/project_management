@@ -154,6 +154,23 @@
                         </li>    
                         </ul>
                     </li>
+
+                    @if((\Auth::user()->type == 'admin') )
+
+                    <li class="nav-item">
+                        <a href="javascript:void(0)">
+                            <i class="icofont-ui-delete has-class"></i>
+                            <span data-i18n="nav.dash.main">Delete Requests</span>
+                            <label class="label label-danger menu-caption">{{$deleteRequests}}</label>
+                        </a>
+                        <ul class="tree-1">
+                            <li>
+                                <a href="{{ route ('client_delete_requests') }}" data-i18n="nav.dash.default"> Client Delete Requests </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    @endif
                 </ul>
             </ul>    
         </div>        
@@ -248,6 +265,8 @@
     <script type="text/javascript" src="{{ asset('dashboard_assets/assets/js/script.js') }}"></script>
     <script src="{{asset('dashboard_assets/assets/pages/data-table/js/data-table-custom.js') }}"></script>
 
+    <button type="button" style="display:none" class="btn btn-success btn-sm" id="pnotify-success">Click here! <i class="icofont icofont-play-alt-2"></i></button>
+<button type="button" style="display:none" class="btn btn-success btn-sm" id="pnotify-danger">Click here! <i class="icofont icofont-play-alt-2"></i></button>
 </body>
 
 </html>
@@ -269,27 +288,11 @@
             $( "#pnotify-success" ).trigger( "click" );
             $('#client_form')[0].reset();
             $( "#sign-in-modal" ).modal( "hide" );
+            window.location.reload(true);
        },
        error: function(xhr, status, error) {
           $( "#pnotify-danger" ).trigger( "click" );
        },
-        // success:function(status){
-
-        //   if(status.msg=='success'){
-        //     alert('Success');
-        //     $( "#pnotify-success" ).trigger( "click" );
-            //notify('Success! ', status.response, 'success');
-            //$(".ui-pnotify-title").text("Success");
-            //$(".ui-pnotify-title").text("Data saved Successfully!");
-            // $(btn).button('reset');
-            // $('#client_form')[0].reset();
-            // $( "#sign-in-modal" ).modal( "hide" );
-          // }
-          // else if(status.msg == 'error'){
-          //   notify('Error! ', status.response, 'danger');
-          //   $(btn).button('reset');
-          // }
-        //}
       });
     });
 </script>

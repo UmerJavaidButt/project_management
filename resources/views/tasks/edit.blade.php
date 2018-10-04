@@ -31,7 +31,7 @@ $deadline = $tasks->project['deadline'];
                 <div class="card">
                     <div class="card-body">
                         <form method="POST" action="{{ action('TaskController@update', $id) }}" aria-label="{{ __('Register Project') }}">
-                        @csrf
+                        {!! csrf_field() !!}
                         <input name="_method" type="hidden" value="PATCH">
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>

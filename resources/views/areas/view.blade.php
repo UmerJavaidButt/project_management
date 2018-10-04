@@ -14,10 +14,10 @@
         <div class="card-block client_portal_card">
         	<div class="justify-content-center">
 	        	<div class="row">
-	        		<div class="col-md-6 offset-md-3">
+	        		<div class="col-md-8 offset-md-2">
 			            <div class="table-content">
-			                <div class="">
-			                    <table class="table table-striped nowrap client_portal_table">
+			                <div class="dt-responsive table-responsive">
+			                    <table id="footer-search" class="table table-striped table-bordered nowrap">
 			                        <thead>
 			                            <tr>
 			                                <th>Name</th>
@@ -56,6 +56,11 @@
 			                        <td></td>
 			                        @endif
 			                        </tbody>
+			                        <tfoot>
+			                        	<th>Name</th>
+			                        	<th>Status</th>
+			                        	<th></th>
+			                        </tfoot>
 			                    </table>
 			                </div>
 			            </div>

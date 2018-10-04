@@ -26,7 +26,7 @@
                 <div class="card">
                     <div class="card-body">
                         <form method="POST" action="{{ url('team') }}" aria-label="{{ __('Register Team') }}">
-                        @csrf
+                        {!! csrf_field() !!}
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 

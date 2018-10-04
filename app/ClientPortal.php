@@ -6,8 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ClientPortal extends Model
 {
-    protected $connection = 'mysql2';
-    protected $table = 'clients';
+    protected $table = 'clients_portal';
 
     protected $fillable = [
     	'title',
@@ -21,7 +20,19 @@ class ClientPortal extends Model
         'delete_bit',
     ];
 
-    // public function area(){
-    // 	return $this->belongsTo('App\Project');
-    // }
+    public function deleteRequest(){
+    	return $this->hasMany('App\DeleteClientRequest');
+    }
+
+    public function businessType(){
+        return $this->belongsTo('App\BusinessType', 'business_type');
+    }
+
+    public function area(){
+        return $this->belongsTo('App\Area', 'area_id');
+    }
+
+    public function status(){
+        return $this->belongsTo('App\Status', 'status');
+    }
 }

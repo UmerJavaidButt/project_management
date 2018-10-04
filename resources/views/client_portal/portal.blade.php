@@ -204,13 +204,26 @@
                                   </li>
 
                                   <li class="list-group-item fist-item text-center">
-                                    <form action="{{ action('ClientPortalController@destroy', $client->id) }}" method="post">
+
+                                  @if( (\Auth::user()->type == 'admin') )
+
+                                  <!-- <form action="{{ action('ClientPortalController@destroy', $client->id) }}" method="post">
+                                    @csrf
+                                    <input name="_method" type="hidden" value="DELETE"> -->
+                                    <button data-id = "{{$client->id}}" type="submit" class="btn btn-danger btn_delete btn-block alert-confirm-admin">
+                                      <span class="glyphicon glyphicon-trash"></span>Delete
+                                    </button>
+                                  <!-- </form> -->
+
+                                  @elseif( (\Auth::user()->type == 'agent'))
+                                    <!-- <form action="{{ action('ClientPortalController@destroy', $client->id) }}" method="post">
                                         @csrf
-                                        <input name="_method" type="hidden" value="DELETE">
-                                        <button class="btn btn-danger btn_delete" type="submit">
+                                        <input name="_method" type="hidden" value="DELETE"> -->
+                                        <button data-id="{{$client->id}}" class="btn btn-danger btn_delete btn-block alert-prompt" type="submit">
                                           <span class="glyphicon glyphicon-trash"></span>Delete
                                         </button>
-                                      </form>
+                                      <!-- </form> -->
+                                  @endif
                                   </li>
                                 </ul>
                               </div>
@@ -304,13 +317,13 @@
                                   </li>
 
                                   <li class="list-group-item fist-item text-center">
-                                    <form action="{{ action('ClientPortalController@destroy', $client->id) }}" method="post">
+                                    <!-- <form action="{{ action('ClientPortalController@destroy', $client->id) }}" method="post">
                                         @csrf
-                                        <input name="_method" type="hidden" value="DELETE">
-                                        <button class="btn btn-danger btn_delete" type="submit">
+                                        <input name="_method" type="hidden" value="DELETE"> -->
+                                        <button data-id="{{$client->id}}" class="btn btn-danger btn_delete btn-block alert-prompt" type="submit">
                                           <span class="glyphicon glyphicon-trash"></span>Delete
                                         </button>
-                                      </form>
+                                      <!-- </form> -->
                                   </li>
 
                                 </ul>
@@ -341,7 +354,7 @@
                             </div>
                             <div class="modal-body p-b-0">
                               <form class="form" action="" method="" id="client_form">
-                              @csrf
+                              {!! csrf_field() !!}
                                 <div class="input-group">
                                     <span class="input-group-addon" id="basic-addon1"><i class="icofont icofont-user"></i></span>
                                     <input type="text" name="title" class="form-control" placeholder="Client Name" value="{{ old('title') }}" required autofocus>
@@ -414,8 +427,10 @@
                                 </button>
                             </div>
                             <div class="modal-body p-b-0">
-                              <form class="form" action="" method="" id="client_form">
-                              @csrf
+                              <form class="form" action="" method="" id="edit_client_form">
+                              {!! csrf_field() !!}
+
+                                <input type="hidden" value="" name="id" id="id">
                                 <div class="input-group">
                                     <span class="input-group-addon" id="basic-addon1"><i class="icofont icofont-user"></i></span>
                                     <input  id="edit_name" type="text" name="title" class="form-control" placeholder="Client Name" value="" required autofocus>
@@ -463,12 +478,12 @@
 
                                 <div class="input-group">
                                     <span class="input-group-addon" id="basic-addon7"><i class="icofont icofont-user"></i></span>
-                                    <textarea value="" class="edit_desc" id="dropper-default" name="description" class="form-control edit_description" type="textarea" placeholder="Description..."></textarea>
+                                    <textarea value="" id="dropper-default" name="description" class="form-control edit_description" type="textarea" placeholder="Description..."></textarea>
                                 </div>
                               </form>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" id="modal_submit" class="btn btn-primary btn_submit">Edit Client</button>
+                                <button type="button" id="modal_submit_edit" class="btn btn-primary btn_submit">Edit Client</button>
                                 <button type="button" class="btn btn_danger btn-danger" data-dismiss="modal">Cancel</button>
                             </div>
                         </div>

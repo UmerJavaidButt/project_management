@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class BusinessType extends Model
 {
-    protected $connection = 'mysql2';
     protected $table = 'business_types';
 
     public $timestamps = false;

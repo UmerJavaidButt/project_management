@@ -91,11 +91,11 @@ class AdminController extends Controller
         $this->updateState($id);
         
         $projects = DB::table('projects')
-                                ->leftJoin('clients', 'projects.client_id', '=', 'clients.id')
+                                ->leftJoin('clients_portal', 'projects.client_id', '=', 'clients_portal.id')
                                 ->leftJoin('project_users', 'projects.id', '=', 'project_users.project_id')
                                 ->leftJoin('teams', 'project_users.team_id', '=', 'teams.id')
                                 ->leftJoin('agents', 'projects.agent_id', '=', 'agents.id')
-                                ->select('projects.*', 'teams.name as teamName', 'teams.id as teamID', 'clients.name as client', 'clients.id as clientID', 'agents.name as agent')
+                                ->select('projects.*', 'teams.name as teamName', 'teams.id as teamID', 'clients_portal.title as client', 'clients_portal.id as clientID', 'agents.name as agent')
                                 ->where('projects.id', '=', $id)
                                 ->first();
 
@@ -142,7 +142,7 @@ class AdminController extends Controller
     }
 
     public function client_details($id){
-        $client = Clients::where('id', $id)->first();
+        $client = ClientPortal::where('id', $id)->first();
 
         return view('admin.client_details', compact('client'));
     }

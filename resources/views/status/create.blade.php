@@ -16,7 +16,7 @@
 				        	<div class="row">
 				        		<div class="col-md-12">
 						            <form method="post" action="{{url('status')}}">
-						            	@csrf
+						            	{!! csrf_field() !!}
 						            	<div class="form-group row">
 				                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Status') }}</label>
 
@@ -35,14 +35,14 @@
 				                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Label Color') }}</label>
 
 				                            <div class="col-md-6">
-				                                <select class="form-control">
+				                                <select class="form-control" name="color">
 				                                	<option value="">--Select Label Color--</option>
-				                                	<option class="label label-default">Default</option>
-				                                	<option class="label label-info">Info</option>
-				                                	<option class="label label-primary">Primary</option>
-				                                	<option class="label label-success">Success</option>
-				                                	<option class="label label-danger">Danger</option>
-				                                	<option class="label label-warning">Warning</option>
+				                                	<option class="label label-default" value="default">Default</option>
+				                                	<option class="label label-info" value="info">Info</option>
+				                                	<option class="label label-primary" value="primary">Primary</option>
+				                                	<option class="label label-success" value="success">Success</option>
+				                                	<option class="label label-danger" value="danger">Danger</option>
+				                                	<option class="label label-warning" value="warning">Warning</option>
 				                                </select>
 
 				                                @if ($errors->has('name'))

@@ -27,7 +27,7 @@
                     <div class="card-body">
                         <form method="POST" action="{{ url('project') }}" aria-label="{{ __('Register Project') }}" style="padding:20px" id="j-pro" class="j-pro">
                             <div class="">    
-                                @csrf
+                                {!! csrf_field() !!}
                                 <div class="form-group row">
                                     <label for="name" class="col-lg-3 col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
@@ -63,7 +63,7 @@
                                         <select name="client_id" class="form-control">
                                         <option value="">~None~</option>
                                         @foreach($clients as $client)
-                                              <option value="{{$client['id']}}">{{$client['name']}}</option>
+                                              <option value="{{$client['id']}}">{{$client['title']}}</option>
                                         @endforeach                            
                                         </select>
                                     </div>

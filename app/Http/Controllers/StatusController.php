@@ -24,6 +24,28 @@ class StatusController extends Controller
     	return view('status.create');
     }
 
+    public function store(Request $request){
+        DB::beginTransaction();
+        try
+        {
+            $data = $request->all();
+
+            Status::create([
+                'name' => $data['name'],
+                'label_color' => $data['color'],
+                'status' => 1,
+                'is_deleted' => 0,
+            ]);
+
+            DB::commit();
+            Session::flash('update', 'Data Saved Successfully');
+            return back()->with('update', 'Data Successfully Saved');
+        } catch (Exception $e) {
+            DB::rollback();
+            return back()->with('error_messages', 'Error in Saving data');
+        }
+    }
+
     public function edit($id){
 
     	$status = Status::find($id);

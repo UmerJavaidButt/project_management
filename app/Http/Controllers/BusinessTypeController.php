@@ -32,6 +32,8 @@ class BusinessTypeController extends Controller
 
             BusinessType::create([
             	'name' => $data['name'],
+                'status' => 1,
+                'is_deleted' => 0,
             ]);
 
             DB::commit();

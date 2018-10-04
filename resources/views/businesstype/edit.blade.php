@@ -16,7 +16,7 @@
 				        	<div class="row">
 				        		<div class="col-md-12">
 						            <form method="post" action="{{action('BusinessTypeController@update', $id)}}">
-						            	@csrf
+						            	{!! csrf_field() !!}
 						            	<input name="_method" type="hidden" value="PATCH">
 						            	<div class="form-group row">
 				                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Business Type') }}</label>
@@ -39,7 +39,6 @@
 				                                    {{ __('Update Business Type') }}
 				                                </button>
 				                                <button type="button" class="btn btn-danger alert-success-cancel-bt m-b-10" id="bt-edit" data-id = "{{$businesstype->id}}">Delete</button>
-				                                <!-- <a href="{{route('delete/businesstype', $businesstype->id)}}" class="btn btn-danger">Delete</a> -->
 				                                
 				                            </div>
 				                        </div>

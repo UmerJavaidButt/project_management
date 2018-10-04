@@ -24,7 +24,7 @@
                 <div class="card">
                     <div class="card-body">
                         <form method="POST" action="{{ url('taskuser') }}" aria-label="{{ __('Assign Task') }}">
-                        @csrf
+                        {!! csrf_field() !!}
                         <input type="hidden" value="{{$task->id}}" name="task">
 
                         <div class="form-group row">

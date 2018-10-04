@@ -26,7 +26,7 @@
                 <div class="card">
                     <div class="card-body" style="margin-top:20px">
                         <form method="POST" action="{{action('ProjectController@update', $id)}}" aria-label="{{ __('Update Project') }}">
-                        @csrf
+                        {!! csrf_field() !!}
                         <input name="_method" type="hidden" value="PATCH">
                         <div class="form-group row">
                             <label for="name" class="col-md-3 col-form-label text-md-right">{{ __('Name') }}</label>
@@ -63,9 +63,9 @@
                             <select name="client_id" class="form-control" id="project_edit_client">
                             @foreach($clients as $client)
                                 @if($project['client_id'] == $client['id'])
-                                    <option value="{{$client['id']}}">{{$client['name']}}</option>
+                                    <option value="{{$client['id']}}">{{$client['title']}}</option>
                                 @else
-                                    <option value="{{$client['id']}}">{{$client['name']}}</option>
+                                    <option value="{{$client['id']}}">{{$client['title']}}</option>
                                 @endif
                             @endforeach                            
                             </select>

@@ -40,7 +40,7 @@ class ProjectController extends Controller
 
     public function create()
     {
-        $clients = \App\Clients::all();
+        $clients = \App\ClientPortal::all();
         $recs = \App\Agent::all();
         //$teams = \App\Team::all();
         return view('project.create', compact('clients','recs'));
@@ -121,7 +121,7 @@ class ProjectController extends Controller
     public function edit($id)
     {
         $project = \App\Project::find($id);
-        $clients = \App\Clients::all();
+        $clients = \App\ClientPortal::all();
         $recs = \App\Agent::all();
         return view('project.edit', compact('project', 'id', 'clients', 'recs'));
     }

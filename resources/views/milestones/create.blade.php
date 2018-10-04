@@ -26,7 +26,7 @@
                 <div class="card">
                     <div class="card-body">
                         <form method="POST" action="{{ url('milestone') }}" aria-label="{{ __('Add Milestone') }}">
-                        @csrf
+                        {!! csrf_field() !!}
                         
                         <input id="project" type="hidden" class="form-control" name="project_id" value="{{$project->id}}">
                         <div class="form-group row">
