@@ -51,7 +51,7 @@
 				        <td><a href="{{action('RecruiterController@edit', $recruiter['id'])}}" class="btn btn-info btn_edit">Edit</a></td>
 				        <td>
 				          <form action="{{action('RecruiterController@destroy', $recruiter['id'])}}" method="post">
-				            @csrf
+				            {!! csrf_field() !!}
 				            <input name="_method" type="hidden" value="DELETE">
 				            <button class="btn btn-danger btn_delete" type="submit">Delete</button>
 				          </form>

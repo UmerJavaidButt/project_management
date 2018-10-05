@@ -63,13 +63,10 @@
                                     </td>
 
                                     <td>
-                                      <!-- <form action="{{ action('ClientController@destroy', $client->id) }}" method="post">
-                                        @csrf
-                                        <input name="_method" type="hidden" value="DELETE"> -->
                                         <button class="btn btn-danger btn-block alert-confirm-admin" type="submit">
                                           <span class="glyphicon glyphicon-trash"></span>Delete
                                         </button>
-                                      <!-- </form> -->
+                                      
                                   </td>
                                 </tr>
 

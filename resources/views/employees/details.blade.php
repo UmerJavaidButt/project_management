@@ -14,14 +14,11 @@
 
 <div class="justify-content-center">
   <div class="row">
-    <div class="col-sm-8">
+    <div class="col-sm-7">
       <div class="wrapper wrapper-content animated fadeInUp">
         <div class="ibox">
           <div class="ibox-title">
             <h5><strong>Employee Details</strong></h5>
-            <!-- <div class="ibox-tools">
-              <a href="{{ url('employee/create') }}" class="btn-primary btn-xs create_new_project">Register New Employee</a>
-            </div> -->
           </div>
 
           <!-- Experiment -->
@@ -59,7 +56,7 @@
 
                                     <td>
                                       <form action="#" method="post">
-                                        @csrf
+                                        {!! csrf_field() !!}
                                         <input name="_method" type="hidden" value="DELETE">
                                         <button class="btn btn-danger btn_delete" type="submit">
                                           <span class="glyphicon glyphicon-trash"></span>Delete
@@ -82,7 +79,7 @@
       </div>
     </div>
     
-    <div class="col-sm-4 client_view_details">
+    <div class="col-sm-5 client_view_details">
       <div class="ibox selected">
         <div class="ibox-content client_view_detail">
           <div class="tab-content">
@@ -110,17 +107,17 @@
                   </li>
                   <li class="list-group-item fist-item">
                     <span class="float-right">
-                      <small style="overflow:visible">
-                        {{$employee->designation['designation']}}
+                      <small style="overflow:hidden">
+                        {{$employee->designations['designation']}}
                       </small>
                     </span>
-                    Desination:
+                    Designation:
                   </li>
                   <li class="list-group-item fist-item">
-                    @if(empty($employee->team) && $employee->designation_id == 2 )
+                    @if($employee->teamAssign == 0)
                       <span class="float-right"><small>{{('No Team Assigned Yet')}}</small></span>
                     @else
-                      <span class="float-right">{{$employee->team['name']}}</span>
+                      <span class="float-right">{{$employee->team->name}}</span>
                     @endif
                     Team:
                   </li>

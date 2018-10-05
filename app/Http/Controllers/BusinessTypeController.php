@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\BusinessType;
 use DB;
+use App\DeleteClientRequest;
 use Session;
 
 class BusinessTypeController extends Controller
@@ -15,12 +16,14 @@ class BusinessTypeController extends Controller
     }
 
     public function index(){
+        $deleteRequests = DeleteClientRequest::where('status', 0)->get()->count();
     	$businesstypes = BusinessType::where('is_deleted', '=', '0')->get();
-    	return view('businesstype.view', compact('businesstypes'));
+    	return view('businesstype.view', compact('businesstypes', 'deleteRequests'));
     }
 
     public function create(){
-    	return view('businesstype.create');
+        $deleteRequests = DeleteClientRequest::where('status', 0)->get()->count();
+    	return view('businesstype.create', compact('deleteRequests'));
     }
 
     public function store(Request $request){
@@ -48,9 +51,9 @@ class BusinessTypeController extends Controller
 
 
     public function edit($id){
-
+        $deleteRequests = DeleteClientRequest::where('status', 0)->get()->count();
     	$businesstype = BusinessType::find($id);
-    	return view('businesstype.edit', compact('businesstype', 'id'));
+    	return view('businesstype.edit', compact('businesstype', 'id', 'deleteRequests'));
     }
 
     public function update(Request $request, $id){

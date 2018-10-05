@@ -29,7 +29,13 @@ class HomeController extends Controller
             return redirect()->route('admin');
         } elseif (\Auth::user()->type == 'agent') {
             return redirect()->route('agent');
+        } elseif (\Auth::user()->type == 'default') {
+            return redirect()->route('oops');
         }
         
+    }
+
+    public function oops(){
+        return view('layouts.default_user');
     }
 }

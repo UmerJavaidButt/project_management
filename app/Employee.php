@@ -15,8 +15,8 @@ class Employee extends Model
     	'teamAssign',
     ];
 
-    public function designation(){
-    	return $this->belongsTo('App\Designation');
+    public function designations(){
+    	return $this->belongsTo('App\Designation', 'designation_id');
     }
 
     public function team(){

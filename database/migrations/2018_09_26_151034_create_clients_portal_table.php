@@ -13,13 +13,17 @@ class CreateClientsPortalTable extends Migration
      */
     public function up()
     {
-        Schema::create('clients_portal', function (Blueprint $table) {
+        Schema::create('clients', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
             $table->string('email');
             $table->string('phone');
             $table->string('website');
+            $table->integer('business_type');
+            $table->integer('area_id');
             $table->text('description');
+            $table->integer('status');
+            $table->boolean('delete_bit');
             $table->timestamps();
         });
     }

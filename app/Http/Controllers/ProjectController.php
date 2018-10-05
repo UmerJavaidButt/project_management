@@ -207,7 +207,7 @@ class ProjectController extends Controller
         $project = DB::table('projects')
             ->leftJoin('clients', 'projects.client_id', '=', 'clients.id')
             ->leftJoin('agents', 'projects.agent_id', '=', 'agents.id')
-            ->select('projects.*', 'clients.name as client', 'agents.name as recruiter')
+            ->select('projects.*', 'clients.title as client', 'agents.name as recruiter')
             ->get();
 
         return view('project.view',compact('project'));

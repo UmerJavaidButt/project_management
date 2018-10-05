@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ClientPortal extends Model
 {
-    protected $table = 'clients_portal';
+    protected $table = 'clients';
 
     protected $fillable = [
     	'title',
@@ -21,7 +21,7 @@ class ClientPortal extends Model
     ];
 
     public function deleteRequest(){
-    	return $this->hasMany('App\DeleteClientRequest');
+    	return $this->hasOne('App\DeleteClientRequest');
     }
 
     public function businessType(){
@@ -32,7 +32,7 @@ class ClientPortal extends Model
         return $this->belongsTo('App\Area', 'area_id');
     }
 
-    public function status(){
+    public function statuses(){
         return $this->belongsTo('App\Status', 'status');
     }
 }

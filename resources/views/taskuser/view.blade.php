@@ -50,13 +50,6 @@
                         
                         <td>
                         <a href="{{route('task/details', $task->task_id)}}" class="btn btn-info btn_edit">Details</a></td>
-                        <!-- <td>
-                          <form action="{{action('TaskUserController@destroy', $task->id)}}" method="post">
-                            @csrf
-                            <input name="_method" type="hidden" value="DELETE">
-                            <button class="btn btn-danger btn_delete" type="submit">Delete</button>
-                          </form>
-                        </td> -->
                       </tr>
                       @endforeach
                     </tbody>

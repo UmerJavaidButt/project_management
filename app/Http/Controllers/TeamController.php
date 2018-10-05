@@ -36,7 +36,7 @@ class TeamController extends Controller
     public function create()
     {
         $des = \App\Designation::where('designation', 'like', '%team%')->orWhere('designation', 'like', '%lead%')->first();
-        $teamleads = Employee::with('designation')
+        $teamleads = Employee::with('designations')
                                 ->where([
                                     ['designation_id', '=', $des->id ],
                                     ['teamAssign', '=', 0],
@@ -95,7 +95,7 @@ class TeamController extends Controller
     public function edit($id)
     {
         $des = \App\Designation::where('designation', 'like', '%team%')->orWhere('designation', 'like', '%lead%')->first();
-        $teamleads = Employee::with('designation')
+        $teamleads = Employee::with('designations')
                                 ->where('designation_id', '=', $des->id)
                                 ->get();
 

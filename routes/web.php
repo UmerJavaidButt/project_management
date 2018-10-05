@@ -21,6 +21,8 @@ Route::get('/logout', function(){
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/oops', 'HomeController@oops')->name('oops');
+
 Route::get('agent/dashboard', 'ClientPortalController@index')->middleware('isAgent')->name('agent');
 Route::get('/admin', 'AdminController@admin')->middleware('isAdmin')->name('admin');
 

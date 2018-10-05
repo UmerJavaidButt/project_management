@@ -33,7 +33,7 @@ class TeamMemberController extends Controller
      */
     public function create()
     {
-       $employees = Employee::with('designation')
+       $employees = Employee::with('designations')
                                         ->where('teamAssign', '=', '0')
                                         ->get();
 

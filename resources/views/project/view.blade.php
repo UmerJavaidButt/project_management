@@ -109,7 +109,7 @@
                           </td>
                           <td>
                             <form action="{{action('ProjectController@destroy', $proj->id)}}" method="post">
-                              @csrf
+                              {!! csrf_field() !!}
                               <input name="_method" type="hidden" value="DELETE">
                               <button class="btn btn-danger btn_delete" type="submit">
                                 <span class="glyphicon glyphicon-trash"></span>Delete

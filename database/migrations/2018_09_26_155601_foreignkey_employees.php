@@ -14,8 +14,8 @@ class ForeignkeyEmployees extends Migration
     public function up()
     {
         Schema::table('employees', function (Blueprint $table) {
-            $table->integer('designation')->unsigned()->nullable();
-            $table->foreign('designation')->references('id')->on('designations')->onDelete('cascade');
+            $table->integer('designation_id')->unsigned()->nullable();
+            $table->foreign('designation_id')->references('id')->on('designations')->onDelete('cascade');
             $table->integer('team_id')->unsigned()->nullable();
             $table->foreign('team_id')->references('id')->on('teams')->onDelete('cascade');
         });
@@ -29,7 +29,7 @@ class ForeignkeyEmployees extends Migration
     public function down()
     {
         Schema::table('employees', function (Blueprint $table) {
-            $table->dropForeign('employees_designation_foreign');
+            $table->dropForeign('employees_designation_id_foreign');
         });
     }
 }

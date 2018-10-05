@@ -27,13 +27,17 @@ class ClientPortalController extends Controller
      */
     public function index()
     {
-        //dd(route('deleteRequest') );
-        //dd(route('delete/businesstype') );
-        $clients = ClientPortal::where('delete_bit', 0)->get();
+
+        $clients = ClientPortal::with('area', 'businessType', 'statuses')->where('delete_bit', '=', 0)->get();
+        
+        // echo "<pre>";
+        // print_r($clients);
+        // die();
         $areas = Area::all();
         $businesstypes = BusinessType::all();
         $status = Status::all();
         $deleteRequests = DeleteClientRequest::where('status', 0)->get()->count();
+
         return view('client_portal.portal', compact('clients', 'areas', 'businesstypes', 'status', 'deleteRequests'));
     }
 
@@ -238,6 +242,7 @@ class ClientPortalController extends Controller
             DeleteClientRequest::create([
               'client_id' => $data['id'],
               'reason' => $data['reason'],
+              'status' => 0,
               ]);
             DB::commit();
             return 1;

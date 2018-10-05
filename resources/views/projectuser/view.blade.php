@@ -48,7 +48,7 @@
                         <a href="{{action('ProjectUserController@edit', $projectuser->id)}}" class="btn btn-info btn_edit">Edit</a></td>
                         <td>
                           <form action="{{action('ProjectUserController@destroy', $projectuser->id)}}" method="post">
-                            @csrf
+                            {!! csrf_field() !!}
                             <input name="_method" type="hidden" value="DELETE">
                             <button class="btn btn-danger btn_delete" type="submit">Delete</button>
                           </form>

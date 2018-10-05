@@ -3,7 +3,10 @@
 @section('content')
 
 <!-- For isolating first iteration of foreach loop -->
-@php $i = 1 @endphp
+@php
+
+
+$i = 1 @endphp
 
 
 
@@ -56,30 +59,18 @@
                                             </thead>
                                             <tbody>
                                             @foreach($clients as $client)
-                                              @if($client->delete_bit == 0)
                                               <tr>
                                                 <td>
                                                   <a href="#contact-{{$client->id}}" class="client-link">{{$client->title}}</a>
                                                 </td>
 
                                                 <td>
-                                                  @foreach($areas as $area)
-                                                    @if($area->id == $client->area_id)
-                                                        {{$area->name}}
-                                                    @endif
-                                                  @endforeach
+                                                    {{$client->area['name']}}
                                                 </td>
                                                 <td>
-                                                  @foreach($status as $st)
-                                                    @if($st->id == $client->status)
-                                                    <span class="float-right">
-                                                      {{$st->name}}
-                                                    </span>
-                                                    @endif
-                                                @endforeach
+                                                    {{$client->statuses['name']}}
                                                 </td>
                                             </tr> 
-                                            @endif  
                                           @endforeach
                                             </tbody>
                                             <tfoot>
@@ -159,13 +150,9 @@
                                     </div>
 
                                     <div>
-                                        @foreach($businesstypes as $bt)
-                                            @if($bt->id == $client->business_type)
-                                                <span class="float-right">
-                                                  <small>{{$bt->name}}</small>
-                                                </span> 
-                                            @endif
-                                        @endforeach
+                                        <span class="float-right">
+                                          <small>{{$client->businessType['name']}}</small>
+                                        </span> 
                                     </div>
                                   </li>
 
@@ -185,44 +172,18 @@
                                     @endif
                                     </div>
                                   </li>
-                                  
-                                  <li class="list-group-item fist-item">
-
-                                  <div>
-                                    <span>Status:</span>
-                                  </div>
-
-                                  <div>
-                                     @foreach($status as $st)
-                                        @if($st->id == $client->status)
-                                        <span class="float-right">
-                                          <small>{{$st->name}}</small>
-                                        </span>
-                                        @endif
-                                    @endforeach
-                                  </div>
-                                  </li>
 
                                   <li class="list-group-item fist-item text-center">
 
                                   @if( (\Auth::user()->type == 'admin') )
-
-                                  <!-- <form action="{{ action('ClientPortalController@destroy', $client->id) }}" method="post">
-                                    @csrf
-                                    <input name="_method" type="hidden" value="DELETE"> -->
                                     <button data-id = "{{$client->id}}" type="submit" class="btn btn-danger btn_delete btn-block alert-confirm-admin">
                                       <span class="glyphicon glyphicon-trash"></span>Delete
                                     </button>
-                                  <!-- </form> -->
 
                                   @elseif( (\Auth::user()->type == 'agent'))
-                                    <!-- <form action="{{ action('ClientPortalController@destroy', $client->id) }}" method="post">
-                                        @csrf
-                                        <input name="_method" type="hidden" value="DELETE"> -->
-                                        <button data-id="{{$client->id}}" class="btn btn-danger btn_delete btn-block alert-prompt" type="submit">
-                                          <span class="glyphicon glyphicon-trash"></span>Delete
-                                        </button>
-                                      <!-- </form> -->
+                                    <button data-id="{{$client->id}}" class="btn btn-danger btn_delete btn-block alert-prompt" type="submit">
+                                      <span class="glyphicon glyphicon-trash"></span>Delete
+                                    </button>
                                   @endif
                                   </li>
                                 </ul>
@@ -276,13 +237,9 @@
                                       <span class="">Business Type:</span>
                                     </div>
                                     <div>
-                                        @foreach($businesstypes as $bt)
-                                            @if($bt->id == $client->business_type)
-                                                <span class="float-right">
-                                                    <small>{{$bt->name}}</small>
-                                                </span> 
-                                            @endif
-                                        @endforeach
+                                        <span class="float-right">
+                                            <small>{{$client->businessType['name']}}</small>
+                                        </span> 
                                     </div>
                                   </li>
 
@@ -302,28 +259,17 @@
                                     </div>
                                   </li>
 
-                                  <li class="list-group-item fist-item">
-                                    <div>
-                                      <span>Status:</span>
-                                    </div>
-
-                                     @foreach($status as $st)
-                                        @if($st->id == $client->status)
-                                        <span class="float-right">
-                                            <small>{{$st->name}}</small>
-                                        </span>
-                                        @endif
-                                    @endforeach
-                                  </li>
-
                                   <li class="list-group-item fist-item text-center">
-                                    <!-- <form action="{{ action('ClientPortalController@destroy', $client->id) }}" method="post">
-                                        @csrf
-                                        <input name="_method" type="hidden" value="DELETE"> -->
+                                    @if( (\Auth::user()->type == 'admin') )
+                                    <button data-id = "{{$client->id}}" type="submit" class="btn btn-danger btn_delete btn-block alert-confirm-admin">
+                                      <span class="glyphicon glyphicon-trash"></span>Delete
+                                    </button>
+
+                                  @elseif( (\Auth::user()->type == 'agent'))
                                         <button data-id="{{$client->id}}" class="btn btn-danger btn_delete btn-block alert-prompt" type="submit">
                                           <span class="glyphicon glyphicon-trash"></span>Delete
                                         </button>
-                                      <!-- </form> -->
+                                  @endif
                                   </li>
 
                                 </ul>

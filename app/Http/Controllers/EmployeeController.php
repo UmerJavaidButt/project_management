@@ -54,7 +54,7 @@ class EmployeeController extends Controller
         $employee->number = $request->get('number');
         $employee->teamAssign = 0;
         $employee->team_id = null;
-        $employee->designation_id = $request->get('designation');
+        $employee->designation = $request->get('designation');
 
         $employee->save();
 
@@ -104,7 +104,7 @@ class EmployeeController extends Controller
         $employee->name = $request->get('name');
         $employee->number = $request->get('number');
         $employee->email = $request->get('email');
-        $employee->designation_id =  $request->get('designation');
+        $employee->designation =  $request->get('designation');
 
         $employee->save();
 
@@ -128,14 +128,17 @@ class EmployeeController extends Controller
 
     public function views()
     {
-        $employees = Employee::with('designation')->get();
+        $employees = Employee::with('designations')->get();
+
         return view('employees.view',compact('employees'));
     }
 
     public function details($id){
-        $employee = Employee::with('designation')
+        $employee = Employee::with('designations', 'team')
                                             ->where('id', '=', $id)
+                                            ->get()
                                             ->first();
+        
         return view('employees.details', compact('employee'));
     }
 }

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Clients extends Model
 {
+    protected $table = 'clients_portal';
     protected $fillable = [
     	'name',
     	'email',

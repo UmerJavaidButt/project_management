@@ -51,6 +51,8 @@ class AgentController extends Controller
             $agent->country = $request->get('country');
             if ($request->get('whatsapp')) {
                 $agent->whatsapp = $request->get('whatsapp');   
+            } else{
+                $agent->whatsapp = null;   
             }
             $agent->share = $request->get('share');
             $agent->description = $request->get('description');
@@ -107,6 +109,8 @@ class AgentController extends Controller
             $agent->country = $request->get('country');
             if ($request->get('whatsapp')) {
                 $agent->whatsapp = $request->get('whatsapp');   
+            }else{
+                $agent->whatsapp = null;
             }
             $agent->share = $request->get('share');
             $agent->description = $request->get('description');

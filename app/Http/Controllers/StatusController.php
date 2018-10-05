@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Status;
 use DB;
+use App\DeleteClientRequest;
 use Session;
 
 class StatusController extends Controller
@@ -16,12 +17,14 @@ class StatusController extends Controller
 
 
     public function index(){
+        $deleteRequests = DeleteClientRequest::where('status', 0)->get()->count();
     	$statuses = Status::where('is_deleted', '0')->get();
-    	return view('status.view', compact('statuses'));
+    	return view('status.view', compact('statuses', 'deleteRequests'));
     }
 
     public function create(){
-    	return view('status.create');
+        $deleteRequests = DeleteClientRequest::where('status', 0)->get()->count();
+    	return view('status.create', compact('deleteRequests'));
     }
 
     public function store(Request $request){
@@ -47,9 +50,9 @@ class StatusController extends Controller
     }
 
     public function edit($id){
-
+        $deleteRequests = DeleteClientRequest::where('status', 0)->get()->count();
     	$status = Status::find($id);
-    	return view('status.edit', compact('status', 'id'));
+    	return view('status.edit', compact('status', 'id', 'deleteRequests'));
     }
 
     public function update(Request $request, $id){

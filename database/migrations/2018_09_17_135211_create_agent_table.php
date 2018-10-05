@@ -17,7 +17,7 @@ class CreateAgentTable extends Migration
             $table->increments('id')->unique();
             $table->string('name');
             $table->string('email');
-            $table->string('number');
+            $table->string('number')->nullable;
             $table->string('address');
             $table->string('country');
             $table->string('whatsapp')->nullable();

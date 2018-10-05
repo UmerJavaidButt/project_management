@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Area;
 use DB;
+use App\DeleteClientRequest;
 use Session;
 
 class AreaController extends Controller
@@ -15,12 +16,14 @@ class AreaController extends Controller
     }
 
     public function index(){
+        $deleteRequests = DeleteClientRequest::where('status', 0)->get()->count();
     	$areas = Area::where('is_deleted', '=', 0)->get();
-    	return view('areas.view', compact('areas'));
+    	return view('areas.view', compact('areas', 'deleteRequests'));
     }
 
     public function create(){
-    	return view('areas.create');
+        $deleteRequests = DeleteClientRequest::where('status', 0)->get()->count();
+    	return view('areas.create', compact('deleteRequests') );
     }
 
     public function store(Request $request){
@@ -46,9 +49,9 @@ class AreaController extends Controller
     }
 
     public function edit($id){
-
+        $deleteRequests = DeleteClientRequest::where('status', 0)->get()->count();
     	$area = Area::find($id);
-    	return view('areas.edit', compact('area', 'id'));
+    	return view('areas.edit', compact('area', 'id', 'deleteRequests'));
     }
 
     public function update(Request $request, $id){
